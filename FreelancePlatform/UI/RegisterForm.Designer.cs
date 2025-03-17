@@ -30,9 +30,13 @@
         {
             userNameText = new TextBox();
             userPasswordText = new TextBox();
-            label1 = new Label();
-            label2 = new Label();
+            userNameLabel = new Label();
+            userPasswordLabel = new Label();
             RegisterButton = new Button();
+            userEmailText = new TextBox();
+            UserEmailLabel = new Label();
+            freelancerRadioButton = new RadioButton();
+            radioButton2 = new RadioButton();
             SuspendLayout();
             // 
             // userNameText
@@ -49,27 +53,27 @@
             userPasswordText.Size = new Size(125, 27);
             userPasswordText.TabIndex = 1;
             // 
-            // label1
+            // userNameLabel
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(335, 86);
-            label1.Name = "label1";
-            label1.Size = new Size(82, 20);
-            label1.TabIndex = 2;
-            label1.Text = "User Name";
+            userNameLabel.AutoSize = true;
+            userNameLabel.Location = new Point(323, 86);
+            userNameLabel.Name = "userNameLabel";
+            userNameLabel.Size = new Size(82, 20);
+            userNameLabel.TabIndex = 2;
+            userNameLabel.Text = "User Name";
             // 
-            // label2
+            // userPasswordLabel
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(335, 160);
-            label2.Name = "label2";
-            label2.Size = new Size(70, 20);
-            label2.TabIndex = 3;
-            label2.Text = "Password";
+            userPasswordLabel.AutoSize = true;
+            userPasswordLabel.Location = new Point(335, 160);
+            userPasswordLabel.Name = "userPasswordLabel";
+            userPasswordLabel.Size = new Size(70, 20);
+            userPasswordLabel.TabIndex = 3;
+            userPasswordLabel.Text = "Password";
             // 
             // RegisterButton
             // 
-            RegisterButton.Location = new Point(441, 277);
+            RegisterButton.Location = new Point(441, 414);
             RegisterButton.Name = "RegisterButton";
             RegisterButton.Size = new Size(100, 35);
             RegisterButton.TabIndex = 4;
@@ -77,14 +81,56 @@
             RegisterButton.UseVisualStyleBackColor = true;
             RegisterButton.Click += RegisterButton_Click;
             // 
+            // userEmailText
+            // 
+            userEmailText.Location = new Point(441, 218);
+            userEmailText.Name = "userEmailText";
+            userEmailText.Size = new Size(125, 27);
+            userEmailText.TabIndex = 5;
+            // 
+            // UserEmailLabel
+            // 
+            UserEmailLabel.AutoSize = true;
+            UserEmailLabel.Location = new Point(359, 225);
+            UserEmailLabel.Name = "UserEmailLabel";
+            UserEmailLabel.Size = new Size(46, 20);
+            UserEmailLabel.TabIndex = 6;
+            UserEmailLabel.Text = "Email";
+            // 
+            // freelancerRadioButton
+            // 
+            freelancerRadioButton.AutoSize = true;
+            freelancerRadioButton.Location = new Point(441, 307);
+            freelancerRadioButton.Name = "freelancerRadioButton";
+            freelancerRadioButton.Size = new Size(98, 24);
+            freelancerRadioButton.TabIndex = 7;
+            freelancerRadioButton.TabStop = true;
+            freelancerRadioButton.Text = "Freelancer";
+            freelancerRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(584, 307);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(68, 24);
+            radioButton2.TabIndex = 8;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Client";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(955, 502);
+            ClientSize = new Size(1049, 586);
+            Controls.Add(radioButton2);
+            Controls.Add(freelancerRadioButton);
+            Controls.Add(UserEmailLabel);
+            Controls.Add(userEmailText);
             Controls.Add(RegisterButton);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            Controls.Add(userPasswordLabel);
+            Controls.Add(userNameLabel);
             Controls.Add(userPasswordText);
             Controls.Add(userNameText);
             Name = "RegisterForm";
@@ -98,8 +144,12 @@
 
         private TextBox userNameText;
         private TextBox userPasswordText;
-        private Label label1;
-        private Label label2;
+        private Label userNameLabel;
+        private Label userPasswordLabel;
         private Button RegisterButton;
+        private TextBox userEmailText;
+        private Label UserEmailLabel;
+        private RadioButton freelancerRadioButton;
+        private RadioButton radioButton2;
     }
 }

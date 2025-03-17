@@ -6,10 +6,10 @@ namespace FreelancePlatform.Repository
     public class UserRepository
     {
 
-        public int AddUser(string username, string password)
+        public int AddUser(string username, string password, string email, string userType)
         {
 
-            string query = "INSERT INTO Users (userName, userPassword) VALUES (@username, @password)";
+            string query = "INSERT INTO Users (userName, userPassword, userEmail, userType) VALUES (@username, @password, @email, @userType)";
             int rowsAffected = 0;
 
             using (var db = new dbConnection())
@@ -18,14 +18,34 @@ namespace FreelancePlatform.Repository
 
                 var paramUsername = new MySqlParameter("@username", username);
                 var paramPassword = new MySqlParameter("@password", password);
+                var paramEmail = new MySqlParameter("@email", email);
+                var paramUserType = new MySqlParameter("@userType", userType);
 
-                rowsAffected = db.ExecuteNonQuery(query, paramUsername, paramPassword);
+                rowsAffected = db.ExecuteNonQuery(query, paramUsername, paramPassword, paramEmail, paramUserType);
                 db.Close();
             }
 
             return rowsAffected;
         }
 
-        // (Optionally, add other CRUD methods here...)
+        public bool UserExists(string username, string email)
+        {
+            string query = "SELECT COUNT(*) FROM Users WHERE userName = @username OR userEmail = @mail";
+            int count = 0;
+
+            using (var db = new MySqlConnection("server=localhost;port=3306;uid=root;password=root;database=freelanceplatform"))
+            {
+                db.Open();
+
+                using (var cmd = new MySqlCommand(query, db))
+                {
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@mail", email);
+                    count = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            return count > 0;
+        }
     }
 }

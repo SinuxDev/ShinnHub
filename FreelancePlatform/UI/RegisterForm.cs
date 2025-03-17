@@ -18,29 +18,35 @@ namespace FreelancePlatform
         {
             string username = userNameText.Text.Trim();
             string password = userPasswordText.Text.Trim();
+            string email = userEmailText.Text.Trim();
+            string userType = freelancerRadioButton.Checked ? "Freelancer" : "Client";
 
-            // Validate inputs.
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Please enter both username and password.", "Validation Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                // Use the service layer to register the user.
+                var userService = new UserService();
+                bool success = userService.RegisterUser(username, password, email, userType);
+
+                if (success)
+                {
+                    MessageBox.Show("User registered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Registration failed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
-            // Use the service layer to register the user.
-            var userService = new UserService();
-            bool success = userService.RegisterUser(username, password);
-
-            if (success)
+            catch (ArgumentException ex)
             {
-                MessageBox.Show("User registered successfully.", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Display validation error messages
+                MessageBox.Show(ex.Message, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Registration failed.", "Error",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Display any other unexpected errors
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
