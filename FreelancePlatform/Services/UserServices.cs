@@ -90,4 +90,9 @@ public class UserService
 
         return isPasswordValid;
     }
+
+    public string? GetUserTypeByEmail(string email)
+    {
+        return repository.GetUserTypeByEmail(email);
+    }
 }

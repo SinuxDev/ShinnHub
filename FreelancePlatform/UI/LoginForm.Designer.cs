@@ -108,7 +108,7 @@
             panel1.Controls.Add(label2);
             panel1.Controls.Add(userLoginEmailTextBox);
             panel1.Controls.Add(UserEmailLogin);
-            panel1.Location = new Point(193, 104);
+            panel1.Location = new Point(177, 107);
             panel1.Name = "panel1";
             panel1.Size = new Size(456, 491);
             panel1.TabIndex = 6;

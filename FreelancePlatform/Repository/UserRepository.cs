@@ -76,5 +76,30 @@ namespace FreelancePlatform.Repository
 
             return storedHashedPassword;
         }
+
+        public string? GetUserTypeByEmail(string email)
+        {
+            string query = "SELECT userType FROM Users WHERE userEmail = @userEmail";
+            string? userType = null;
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@userEmail", email);
+                    object? result = cmd.ExecuteScalar();
+
+                    if (result is string userTypeStr) // Null-safe cast
+                    {
+                        userType = userTypeStr;
+                    }
+                }
+                db.Close();
+            }
+
+            return userType; // userType may still be null if no matching record is found
+        }
+
     }
 }

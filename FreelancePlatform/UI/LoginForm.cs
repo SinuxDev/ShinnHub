@@ -1,4 +1,5 @@
 ﻿using FreelancePlatform.Services;
+using FreelancePlatform.UI;
 namespace FreelancePlatform
 {
     public partial class LoginForm : Form
@@ -16,7 +17,6 @@ namespace FreelancePlatform
             string userEmail = userLoginEmailTextBox.Text.Trim();
             string userPassword = userLoginPasswordTextBox.Text.Trim();
 
-
             if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userPassword))
             {
                 MessageBox.Show("Please enter your email and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -29,7 +29,35 @@ namespace FreelancePlatform
 
                 if (isAuthenticated)
                 {
+                    string? userType = userService.GetUserTypeByEmail(userEmail);
+
+                    if (string.IsNullOrEmpty(userType)) // Check for null before using it
+                    {
+                        MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     MessageBox.Show("Login successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    Form nextForm;
+
+                    if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
+                    {
+                        nextForm = new SkillsSetUpFormOne();
+                    }
+                    else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
+                    {
+                        nextForm = new ClientForm();
+                    }
+                    else
+                    {
+                        MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+
+                    this.Hide();
+                    nextForm.Show();
                 }
                 else
                 {
@@ -40,12 +68,12 @@ namespace FreelancePlatform
             {
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void RegisterFormLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            RegisterForm registerForm = new RegisterForm();
+            RegisterForm registerForm = new();
             registerForm.Show();
             this.Hide();
         }
