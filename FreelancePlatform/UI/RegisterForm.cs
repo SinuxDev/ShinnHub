@@ -48,5 +48,11 @@ namespace FreelancePlatform
             }
         }
 
+        private void LoginFormLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Hide();
+        }
     }
 }

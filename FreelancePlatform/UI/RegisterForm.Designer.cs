@@ -39,6 +39,8 @@
             radioButton2 = new RadioButton();
             panel1 = new Panel();
             label1 = new Label();
+            label2 = new Label();
+            LoginFormLinkLabel = new LinkLabel();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -132,6 +134,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(LoginFormLinkLabel);
+            panel1.Controls.Add(label2);
             panel1.Controls.Add(userNameLabel);
             panel1.Controls.Add(radioButton2);
             panel1.Controls.Add(RegisterButton);
@@ -143,7 +147,7 @@
             panel1.Controls.Add(userEmailText);
             panel1.Location = new Point(147, 112);
             panel1.Name = "panel1";
-            panel1.Size = new Size(503, 446);
+            panel1.Size = new Size(503, 478);
             panel1.TabIndex = 9;
             // 
             // label1
@@ -155,6 +159,26 @@
             label1.Size = new Size(375, 50);
             label1.TabIndex = 10;
             label1.Text = "Join ShinnHub Today!";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(48, 429);
+            label2.Name = "label2";
+            label2.Size = new Size(189, 20);
+            label2.TabIndex = 9;
+            label2.Text = "Already Have An Account ?";
+            // 
+            // LoginFormLinkLabel
+            // 
+            LoginFormLinkLabel.AutoSize = true;
+            LoginFormLinkLabel.Location = new Point(279, 429);
+            LoginFormLinkLabel.Name = "LoginFormLinkLabel";
+            LoginFormLinkLabel.Size = new Size(153, 20);
+            LoginFormLinkLabel.TabIndex = 10;
+            LoginFormLinkLabel.TabStop = true;
+            LoginFormLinkLabel.Text = "Login to your account";
+            LoginFormLinkLabel.LinkClicked += LoginFormLinkLabel_LinkClicked;
             // 
             // RegisterForm
             // 
@@ -185,5 +209,7 @@
         private RadioButton radioButton2;
         private Panel panel1;
         private Label label1;
+        private Label label2;
+        private LinkLabel LoginFormLinkLabel;
     }
 }
