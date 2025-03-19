@@ -47,5 +47,34 @@ namespace FreelancePlatform.Repository
 
             return count > 0;
         }
+
+        public string? GetPasswordByUserEmail(string email)
+        {
+            string query = "SELECT userPassword FROM Users WHERE userEmail = @mail";
+            string? storedHashedPassword = null;
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@mail", email);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            storedHashedPassword = reader.GetString("userPassword");
+                        }
+                    }
+                }
+
+                db.Close();
+            }
+
+
+            return storedHashedPassword;
+        }
     }
 }

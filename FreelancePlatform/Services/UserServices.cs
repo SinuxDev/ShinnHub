@@ -76,4 +76,18 @@ public class UserService
         return hasLowercase && hasUppercase;
     }
 
+
+    public bool AuthenticateUser(string email, string password)
+    {
+        string? storedHashedPassword = repository.GetPasswordByUserEmail(email);
+
+        if (string.IsNullOrEmpty(storedHashedPassword))
+        {
+            return false;
+        }
+
+        bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, storedHashedPassword);
+
+        return isPasswordValid;
+    }
 }
