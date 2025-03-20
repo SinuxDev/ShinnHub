@@ -1,7 +1,12 @@
-﻿namespace FreelancePlatform.UI
+﻿using FreelancePlatform.Services;
+
+namespace FreelancePlatform.UI
 {
     public partial class SkillsSetUpFormTwo : Form
     {
+        private int userID;
+        private string userName;
+
         private Dictionary<string, List<string>> industrySkills = new Dictionary<string, List<string>>
         {
             { "IT & Networking", new List<string> { "Network Security", "Cloud Computing", "Technical Support" } },
@@ -16,13 +21,15 @@
 
         private bool isUpdating = false;
 
-        public SkillsSetUpFormTwo()
+        public SkillsSetUpFormTwo(int userID, string userName)
         {
             InitializeComponent();
             industrySelectBox.SelectedIndexChanged += industrySelectBox_SelectedIndexChanged;
             skillsOneComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
             skillsTwoComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
             skillsThreeComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
+            this.userID = userID;
+            this.userName = userName;
         }
 
         private void industrySelectBox_SelectedIndexChanged(object? sender, EventArgs e)
@@ -111,6 +118,45 @@
                 comboBox.SelectedIndex = -1; // No selection
             }
             comboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged; // Re-enable event
+        }
+
+        private void GetStartedButton_Click(object sender, EventArgs e)
+        {
+            string userRole = UserRoleTextBox.Text.Trim();
+            string userBio = UserBioTextBox.Text.Trim();
+            string userCountry = UserCountryTextBox.Text.Trim();
+            string userAddress = UserAddressTextBox.Text.Trim();
+            string userPhone = UserPhoneTextBox.Text.Trim();
+            string userRegion = UserRegionTextBox.Text.Trim();
+
+            if (industrySelectBox.SelectedItem == null || skillsOneComboBox.SelectedItem == null || skillsTwoComboBox.SelectedItem == null || skillsThreeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("Please select industry and skills.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string userSkillsIndustry = industrySelectBox.SelectedItem?.ToString() ?? string.Empty;
+            string userSkillsOne = skillsOneComboBox.SelectedItem?.ToString() ?? string.Empty;
+            string userSkillsTwo = skillsTwoComboBox.SelectedItem?.ToString() ?? string.Empty;
+            string userSkillsThree = skillsThreeComboBox.SelectedItem?.ToString() ?? string.Empty;
+
+            FreelancerService freelancerService = new FreelancerService();
+
+            bool isRegistered = freelancerService.RegisterFreelancer(
+                userName, userID, userSkillsIndustry,
+                userSkillsOne, userSkillsTwo, userSkillsThree,
+                userRole, userBio, userCountry, userRegion, userAddress, userPhone
+            );
+
+            if (isRegistered)
+            {
+                MessageBox.Show("Freelancer profile created successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Failed to create freelancer profile.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

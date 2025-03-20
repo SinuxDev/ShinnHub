@@ -1,4 +1,6 @@
-﻿using FreelancePlatform.Repository;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Repository;
+using MySql.Data.MySqlClient;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 
@@ -94,5 +96,31 @@ public class UserService
     public string? GetUserTypeByEmail(string email)
     {
         return repository.GetUserTypeByEmail(email);
+    }
+
+    public (int UserID, string UserName)? GetUserDetailsByEmail(string email)
+    {
+        string query = "SELECT userID, userName FROM Users WHERE userEmail = @userEmail";
+
+        using (var db = new dbConnection())
+        {
+            db.Open();
+            using (var cmd = new MySqlCommand(query, db.Connection))
+            {
+                cmd.Parameters.AddWithValue("@userEmail", email);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userID = reader.GetInt32("userID");
+                        string userName = reader.GetString("userName");
+                        return (userID, userName);
+                    }
+                }
+            }
+            db.Close();
+        }
+
+        return null; // Return null if no user is found
     }
 }
