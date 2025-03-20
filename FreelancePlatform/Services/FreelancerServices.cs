@@ -26,4 +26,11 @@ public class FreelancerService
         int result = repository.AddFreelancer(userName, userID, userSkillsIndustry, userSkillsOne, userSkillsTwo, userSkillsThree, userRole, userBio, userCountry, userRegion, userAddress, userPhone);
         return result > 0;
     }
+
+    public bool CheckFreelancerProfile(int userID)
+    {
+        FreelancerRepository repository = new FreelancerRepository();
+        return repository.DoesFreelancerProfileExist(userID);
+    }
+
 }

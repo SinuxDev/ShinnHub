@@ -32,7 +32,7 @@ namespace FreelancePlatform
                     string? userType = userService.GetUserTypeByEmail(userEmail);
                     var userDetails = userService.GetUserDetailsByEmail(userEmail);
 
-                    if (string.IsNullOrEmpty(userType)) // Check for null before using it
+                    if (string.IsNullOrEmpty(userType))
                     {
                         MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -47,7 +47,17 @@ namespace FreelancePlatform
 
                     if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
                     {
-                        nextForm = new SkillsSetUpFormOne(userID, userName);
+                        FreelancerService freelancerService = new FreelancerService();
+                        bool hasProfile = freelancerService.CheckFreelancerProfile(userID);
+
+                        if (hasProfile)
+                        {
+                            nextForm = new NewFeedForm(userID, userName); // Redirect to NewFeedForm
+                        }
+                        else
+                        {
+                            nextForm = new SkillsSetUpFormOne(userID, userName); // Redirect to SkillsSetUpFormOne
+                        }
                     }
                     else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
                     {
@@ -58,7 +68,6 @@ namespace FreelancePlatform
                         MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-
 
                     this.Hide();
                     nextForm.Show();
@@ -73,6 +82,7 @@ namespace FreelancePlatform
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private void RegisterFormLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

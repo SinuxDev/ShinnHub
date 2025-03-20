@@ -36,5 +36,22 @@ namespace FreelancePlatform.Repository
             return rowsAffected;
         }
 
+
+        public bool DoesFreelancerProfileExist(int userID)
+        {
+            string query = "SELECT COUNT(*) FROM UserSkills WHERE userID = @userID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                var parameter = new MySqlParameter("@userID", MySqlDbType.Int32) { Value = userID };
+
+                object result = db.ExecuteScalar(query, parameter);
+                db.Close();
+
+                return Convert.ToInt32(result) > 0; // If count > 0, profile exists
+            }
+        }
+
     }
 }
