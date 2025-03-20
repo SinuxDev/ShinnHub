@@ -38,6 +38,12 @@ namespace FreelancePlatform
                         return;
                     }
 
+                    if (!userDetails.HasValue)
+                    {
+                        MessageBox.Show("User details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     int userID = userDetails.Value.UserID;
                     string userName = userDetails.Value.UserName;
 
@@ -61,7 +67,31 @@ namespace FreelancePlatform
                     }
                     else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
                     {
-                        nextForm = new ClientForm();
+                        var clientDetails = userService.GetClientDetailsByEmail(userEmail);
+
+                        if (clientDetails.HasValue)
+                        {
+                            int clientID = clientDetails.Value.UserID;
+                            string clientName = clientDetails.Value.UserName;
+                            string clientEmail = clientDetails.Value.UserEmail;
+
+                            ClientServices clientServices = new ClientServices();
+                            bool hasClientProfile = clientServices.ClientProfileExists(clientID);
+
+                            if (hasClientProfile)
+                            {
+                                nextForm = new NewFeedForm(clientID, clientName); // Redirect to NewFeedForm
+                            }
+                            else
+                            {
+                                nextForm = new ClientForm(clientID, clientName, clientEmail); // Redirect to ClientForm
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Client details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
                     else
                     {
@@ -82,8 +112,6 @@ namespace FreelancePlatform
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
 
         private void RegisterFormLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

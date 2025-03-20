@@ -123,4 +123,32 @@ public class UserService
 
         return null; // Return null if no user is found
     }
+
+
+    public (int UserID, string UserName, string UserEmail)? GetClientDetailsByEmail(string email)
+    {
+        string query = "SELECT userID, userName, userEmail FROM Users WHERE userEmail = @userEmail";
+
+        using (var db = new dbConnection())
+        {
+            db.Open();
+            using (var cmd = new MySqlCommand(query, db.Connection))
+            {
+                cmd.Parameters.AddWithValue("@userEmail", email);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userID = reader.GetInt32("userID");
+                        string userName = reader.GetString("userName");
+                        string userEmail = reader.GetString("userEmail");
+                        return (userID, userName, userEmail);
+                    }
+                }
+            }
+            db.Close();
+        }
+
+        return null;
+    }
 }
