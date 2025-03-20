@@ -30,6 +30,7 @@ namespace FreelancePlatform
                 if (isAuthenticated)
                 {
                     string? userType = userService.GetUserTypeByEmail(userEmail);
+                    var userDetails = userService.GetUserDetailsByEmail(userEmail);
 
                     if (string.IsNullOrEmpty(userType)) // Check for null before using it
                     {
@@ -37,13 +38,16 @@ namespace FreelancePlatform
                         return;
                     }
 
+                    int userID = userDetails.Value.UserID;
+                    string userName = userDetails.Value.UserName;
+
                     MessageBox.Show("Login successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     Form nextForm;
 
                     if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
                     {
-                        nextForm = new SkillsSetUpFormOne();
+                        nextForm = new SkillsSetUpFormOne(userID, userName);
                     }
                     else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
                     {
