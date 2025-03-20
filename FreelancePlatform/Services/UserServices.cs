@@ -127,22 +127,22 @@ public class UserService
 
     public (int UserID, string UserName, string UserEmail)? GetClientDetailsByEmail(string email)
     {
-        string query = "SELECT userID, userName, userEmail FROM Users WHERE userEmail = @userEmail";
+        string query = "SELECT ClientID, clientName, clientEmail FROM Client WHERE clientEmail = @clientEmail";
 
         using (var db = new dbConnection())
         {
             db.Open();
             using (var cmd = new MySqlCommand(query, db.Connection))
             {
-                cmd.Parameters.AddWithValue("@userEmail", email);
+                cmd.Parameters.AddWithValue("@clientEmail", email);
                 using (var reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        int userID = reader.GetInt32("userID");
-                        string userName = reader.GetString("userName");
-                        string userEmail = reader.GetString("userEmail");
-                        return (userID, userName, userEmail);
+                        int clientID = reader.GetInt32("ClientID");
+                        string clientName = reader.GetString("clientName");
+                        string clientEmail = reader.GetString("clientEmail");
+                        return (clientID, clientName, clientEmail);
                     }
                 }
             }
@@ -151,4 +151,5 @@ public class UserService
 
         return null;
     }
+
 }

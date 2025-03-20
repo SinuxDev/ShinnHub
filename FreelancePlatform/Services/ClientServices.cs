@@ -4,11 +4,11 @@ namespace FreelancePlatform.Services;
 
 public class ClientServices
 {
-    private readonly ClientReository reository;
+    private readonly ClientRepository reository;
 
     public ClientServices()
     {
-        reository = new ClientReository();
+        reository = new ClientRepository();
     }
 
     public bool RegisterClient(string clientName, string clientEmail, string clientCompany, string clientIndustry, int relatedUser)

@@ -80,7 +80,7 @@ namespace FreelancePlatform
 
                             if (hasClientProfile)
                             {
-                                nextForm = new NewFeedForm(clientID, clientName); // Redirect to NewFeedForm
+                                nextForm = new ClientDashboard(clientID); // Redirect to NewFeedForm
                             }
                             else
                             {

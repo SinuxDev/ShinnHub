@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace FreelancePlatform.Repository
 {
-    public class ClientReository
+    public class ClientRepository
     {
         public int AddClient(string clientName, string clientEmail, string clientCompany, string clientIndustry, int relatedUser)
         {
