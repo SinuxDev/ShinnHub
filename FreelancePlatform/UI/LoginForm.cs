@@ -76,7 +76,7 @@ namespace FreelancePlatform
                             string clientEmail = clientDetails.Value.UserEmail;
 
                             ClientServices clientServices = new ClientServices();
-                            bool hasClientProfile = clientServices.ClientProfileExists(clientID);
+                            bool hasClientProfile = clientServices.ClientProfileExists(userID);
 
                             if (hasClientProfile)
                             {
