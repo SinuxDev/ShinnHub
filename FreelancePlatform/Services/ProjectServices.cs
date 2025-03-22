@@ -1,4 +1,6 @@
-﻿namespace FreelancePlatform.Repository;
+﻿using static FreelancePlatform.Repository.ProjectRepository;
+
+namespace FreelancePlatform.Repository;
 
 public class ProjectServices
 {
@@ -19,4 +21,8 @@ public class ProjectServices
         return result > 0;
     }
 
+    public List<Project> GetProjectsByClientID(int clientID)
+    {
+        return repository.GetProjectsByClientID(clientID);
+    }
 }

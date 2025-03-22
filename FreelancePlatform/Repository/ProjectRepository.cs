@@ -25,5 +25,49 @@ namespace FreelancePlatform.Repository
             }
             return rowsAffected;
         }
+
+        public class Project
+        {
+            public int ProjectID { get; set; }
+            public string? ProjectTitle { get; set; }
+            public string? ProjectDescription { get; set; }
+            public decimal ProjectBudget { get; set; }
+            public string? ProjectDeadline { get; set; }
+            public string? ProjectSkills { get; set; }
+        }
+
+
+
+        public List<Project> GetProjectsByClientID(int clientID)
+        {
+            List<Project> projects = new List<Project>();
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project WHERE relatedClient = @ClientID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@ClientID", clientID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.GetString("projectTitle"),
+                                ProjectDescription = reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                ProjectDeadline = reader.GetString("projectDeadline"),
+                                ProjectSkills = reader.GetString("projectSkills")
+                            });
+                        }
+                    }
+                }
+            }
+            return projects;
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using FreelancePlatform.Services;
+﻿using FreelancePlatform.Repository;
+using FreelancePlatform.Services;
+using static FreelancePlatform.Repository.ProjectRepository;
 
 namespace FreelancePlatform.UI
 {
@@ -6,17 +8,20 @@ namespace FreelancePlatform.UI
     {
         private int clientID;
         private readonly ClientServices clientServices;
+        private readonly ProjectServices projectService;
 
         public ClientProfileForm(int clientID)
         {
             InitializeComponent();
             this.clientID = clientID;
+            projectService = new ProjectServices();
             clientServices = new ClientServices();
         }
 
         private void ClientProfileForm_Load(object sender, EventArgs e)
         {
             LoadClientProfile();
+            LoadProjects();
         }
 
         private void LoadClientProfile()
@@ -41,6 +46,20 @@ namespace FreelancePlatform.UI
             ProjectPostCreateForm projectPostCreateForm = new ProjectPostCreateForm(clientID);
             projectPostCreateForm.Show();
             this.Hide();
+        }
+
+        private void LoadProjects()
+        {
+            List<Project> projects = projectService.GetProjectsByClientID(clientID);
+
+            if (projects.Count > 0)
+            {
+                ClientProjectDataGridViews.DataSource = projects;
+            }
+            else
+            {
+                MessageBox.Show("No projects found for this client.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
