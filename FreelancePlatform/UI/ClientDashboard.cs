@@ -19,5 +19,12 @@ namespace FreelancePlatform
             projectPostCreateForm.Show();
             this.Hide();
         }
+
+        private void ClientProfileCheckButton_Click(object sender, EventArgs e)
+        {
+            ClientProfileForm clientProfileForm = new ClientProfileForm(userID);
+            clientProfileForm.Show();
+            this.Hide();
+        }
     }
 }

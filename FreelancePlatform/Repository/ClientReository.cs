@@ -39,5 +39,40 @@ namespace FreelancePlatform.Repository
             }
         }
 
+        public (string clientName, string clientEmail, string clientCompany, string clientIndustry)? SelectClientProfile(int ClientID)
+        {
+            string query = "SELECT clientName, clientEmail, clientCompany, clientIndustry FROM Client WHERE ClientID = @ClientID";
+
+            using (var db = new dbConnection())
+            {
+                try
+                {
+                    db.Open();
+                    using (var cmd = new MySqlCommand(query, db.Connection))
+                    {
+                        cmd.Parameters.AddWithValue("@ClientID", ClientID);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                return (
+                                    reader.GetString("clientName"),
+                                    reader.GetString("clientEmail"),
+                                    reader.GetString("clientCompany"),
+                                    reader.GetString("clientIndustry")
+                                );
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error: {ex.Message}");
+                }
+            }
+
+            return null;
+        }
+
     }
 }

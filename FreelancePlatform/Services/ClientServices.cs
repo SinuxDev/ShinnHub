@@ -4,11 +4,11 @@ namespace FreelancePlatform.Services;
 
 public class ClientServices
 {
-    private readonly ClientRepository reository;
+    private readonly ClientRepository repository;
 
     public ClientServices()
     {
-        reository = new ClientRepository();
+        repository = new ClientRepository();
     }
 
     public bool RegisterClient(string clientName, string clientEmail, string clientCompany, string clientIndustry, int relatedUser)
@@ -18,13 +18,18 @@ public class ClientServices
         {
             throw new ArgumentException("All fields must be provided.");
         }
-        int result = reository.AddClient(clientName, clientEmail, clientCompany, clientIndustry, relatedUser);
+        int result = repository.AddClient(clientName, clientEmail, clientCompany, clientIndustry, relatedUser);
         return result > 0;
     }
 
     public bool ClientProfileExists(int userID)
     {
-        return reository.CheckClientProfile(userID);
+        return repository.CheckClientProfile(userID);
+    }
+
+    public (string clientName, string clientEmail, string clientCompany, string clientIndustry)? SelectClientProfile(int clientID)
+    {
+        return repository.SelectClientProfile(clientID);
     }
 
 }

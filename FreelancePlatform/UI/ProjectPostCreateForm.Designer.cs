@@ -79,6 +79,7 @@
             ClientProfileCheckButton.Size = new Size(115, 43);
             ClientProfileCheckButton.TabIndex = 1;
             ClientProfileCheckButton.Text = "Your Profile";
+            ClientProfileCheckButton.Click += ClientProfileCheckButton_Click;
             // 
             // ClientCreateProjectButton
             // 

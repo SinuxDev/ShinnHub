@@ -53,6 +53,7 @@
             ClientProfileCheckButton.Size = new Size(115, 43);
             ClientProfileCheckButton.TabIndex = 0;
             ClientProfileCheckButton.Text = "Your Profile";
+            ClientProfileCheckButton.Click += ClientProfileCheckButton_Click;
             // 
             // ClientCreatePostButtonClicked
             // 
