@@ -65,7 +65,7 @@ namespace FreelancePlatform.Repository
         public bool AcceptProjectRequest(int requestID, int projectID)
         {
             string updateRequestQuery = "UPDATE ProjectRequest SET status = 'accepted' WHERE projectRequestID = @requestID";
-            string updateProjectQuery = "UPDATE Project SET isDone = 1 WHERE projectID = @projectID";
+            string updateProjectQuery = "UPDATE Project SET isShow = 1 WHERE projectID = @projectID";
 
             using (var db = new dbConnection())
             {

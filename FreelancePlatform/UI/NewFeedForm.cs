@@ -90,12 +90,22 @@ namespace FreelancePlatform.UI
             // Apply Button
             Button applyButton = new Button
             {
-                Text = "Apply",
-                AutoSize = true,
-                BackColor = Color.Green,
-                ForeColor = Color.White
+                AutoSize = true
             };
-            applyButton.Click += (s, e) => ApplyToProject(project.ProjectID);
+
+            if (project.isDone == 1)
+            {
+                applyButton.Text = "Completed";   // Change text
+                applyButton.BackColor = Color.Gray; // Change color
+                applyButton.Enabled = false; // Disable button
+            }
+            else
+            {
+                applyButton.Text = "Apply";
+                applyButton.BackColor = Color.Green;
+                applyButton.ForeColor = Color.White;
+                applyButton.Click += (s, e) => ApplyToProject(project.ProjectID);
+            }
 
             // Add controls to panel
             panel.Controls.Add(titleLabel);
@@ -107,10 +117,11 @@ namespace FreelancePlatform.UI
             titleLabel.Location = new Point(10, 10);
             descriptionLabel.Location = new Point(10, 35);
             budgetLabel.Location = new Point(10, 100);
-            applyButton.Location = new Point(panel.Width - 80, 100);
+            applyButton.Location = new Point(panel.Width - 100, 100); // Adjusted placement
 
             return panel;
         }
+
 
         private void ApplyToProject(int projectID)
         {
@@ -119,6 +130,12 @@ namespace FreelancePlatform.UI
             if (project == null)
             {
                 MessageBox.Show("Project not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (project.isDone == 1)
+            {
+                MessageBox.Show("This project is already applied by others. You cannot apply.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

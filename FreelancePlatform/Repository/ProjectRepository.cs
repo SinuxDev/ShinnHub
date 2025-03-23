@@ -36,6 +36,7 @@ namespace FreelancePlatform.Repository
             public string? ProjectDeadline { get; set; }
             public string? ProjectSkills { get; set; }
             public int RelatedClientID { get; set; }
+            public int isDone { get; set; }
         }
 
 
@@ -74,7 +75,7 @@ namespace FreelancePlatform.Repository
         public List<Project> GetAllProjects()
         {
             List<Project> projects = new List<Project>();
-            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project WHERE isDone = 0";
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project WHERE isShow = 0";
 
             using (var db = new dbConnection())
             {
@@ -104,7 +105,7 @@ namespace FreelancePlatform.Repository
         public Project GetProjectDetails(int projectID)
         {
             Project? project = null;
-            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills, relatedClient FROM Project WHERE projectID = @ProjectID";
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills, relatedClient, isDone FROM Project WHERE projectID = @ProjectID";
 
             using (var db = new dbConnection())
             {
@@ -124,7 +125,8 @@ namespace FreelancePlatform.Repository
                                 ProjectBudget = reader.GetDecimal("projectBudget"),
                                 ProjectDeadline = reader.IsDBNull("projectDeadline") ? null : reader.GetString("projectDeadline"),
                                 ProjectSkills = reader.IsDBNull("projectSkills") ? null : reader.GetString("projectSkills"),
-                                RelatedClientID = reader.GetInt32("relatedClient")
+                                RelatedClientID = reader.GetInt32("relatedClient"),
+                                isDone = reader.GetInt32("isDone")
                             };
                         }
                     }
