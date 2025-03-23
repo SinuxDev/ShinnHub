@@ -86,5 +86,78 @@ namespace FreelancePlatform.Repository
             return projects;
         }
 
+        public Freelancer? GetFreelancerProfile(int userID)
+        {
+            Freelancer? freelancer = null;
+            string query = "SELECT * FROM UserSkills WHERE userID = @userID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            freelancer = new Freelancer
+                            {
+                                UserID = reader.GetInt32("userID"),
+                                UserName = reader.GetString("userName"),
+                                UserSkillsIndustry = reader.IsDBNull("userSkillsIndustry") ? "" : reader.GetString("userSkillsIndustry"),
+                                UserSkillsOne = reader.IsDBNull("userSkillsOne") ? "" : reader.GetString("userSkillsOne"),
+                                UserSkillsTwo = reader.IsDBNull("userSkillsTwo") ? "" : reader.GetString("userSkillsTwo"),
+                                UserSkillsThree = reader.IsDBNull("userSkillsThree") ? "" : reader.GetString("userSkillsThree"),
+                                UserRole = reader.IsDBNull("userRole") ? "" : reader.GetString("userRole"),
+                                UserBio = reader.IsDBNull("userBio") ? "" : reader.GetString("userBio"),
+                                UserCountry = reader.IsDBNull("userCountry") ? "" : reader.GetString("userCountry"),
+                                UserRegion = reader.IsDBNull("userRegion") ? "" : reader.GetString("userRegion"),
+                                UserAddress = reader.IsDBNull("userAddress") ? "" : reader.GetString("userAddress"),
+                                UserPhone = reader.IsDBNull("userPhone") ? "" : reader.GetString("userPhone")
+                            };
+                        }
+                    }
+                }
+            }
+            return freelancer;
+        }
+
+        public List<Freelancer> GetAllFreelancers()
+        {
+            List<Freelancer> freelancers = new List<Freelancer>();
+            string query = "SELECT * FROM UserSkills";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            freelancers.Add(new Freelancer
+                            {
+                                UserID = reader.GetInt32("userID"),
+                                UserName = reader.GetString("userName"),
+                                UserSkillsIndustry = reader.GetString("userSkillsIndustry"),
+                                UserSkillsOne = reader.GetString("userSkillsOne"),
+                                UserSkillsTwo = reader.GetString("userSkillsTwo"),
+                                UserSkillsThree = reader.GetString("userSkillsThree"),
+                                UserRole = reader.GetString("userRole"),
+                                UserBio = reader.GetString("userBio"),
+                                UserCountry = reader.GetString("userCountry"),
+                                UserRegion = reader.GetString("userRegion"),
+                                UserAddress = reader.GetString("userAddress"),
+                                UserPhone = reader.GetString("userPhone")
+                            });
+                        }
+                    }
+                }
+            }
+            return freelancers;
+        }
+
     }
 }

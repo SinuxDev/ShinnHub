@@ -1,4 +1,5 @@
-﻿using FreelancePlatform.Repository;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Repository;
 using static FreelancePlatform.Repository.ProjectRepository;
 
 namespace FreelancePlatform.Services;
@@ -39,4 +40,13 @@ public class FreelancerService
         return repository.GetOngoingProjectsForFreelancer(freelancerID);
     }
 
+    public Freelancer? GetFreelancerProfile(int userID)
+    {
+        return repository.GetFreelancerProfile(userID);
+    }
+
+    public List<Freelancer> GetAllFreelancers()
+    {
+        return repository.GetAllFreelancers();
+    }
 }
