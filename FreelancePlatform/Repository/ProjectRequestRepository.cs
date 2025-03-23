@@ -65,20 +65,26 @@ namespace FreelancePlatform.Repository
         public bool AcceptProjectRequest(int requestID, int projectID)
         {
             string updateRequestQuery = "UPDATE ProjectRequest SET status = 'accepted' WHERE projectRequestID = @requestID";
-            string updateProjectQuery = "UPDATE Project SET isShow = 1 WHERE projectID = @projectID";
+            string updateProjectQuery = "UPDATE Project SET isApply = 1, relatedProjectFreelancerID = (SELECT relatedFreelancer FROM ProjectRequest WHERE projectRequestID = @requestID) WHERE projectID = @projectID";
 
             using (var db = new dbConnection())
             {
                 db.Open();
-                var paramRequestID = new MySqlParameter("@requestID", requestID);
-                var paramProjectID = new MySqlParameter("@projectID", projectID);
 
-                int requestUpdated = db.ExecuteNonQuery(updateRequestQuery, paramRequestID);
-                int projectUpdated = db.ExecuteNonQuery(updateProjectQuery, paramProjectID);
+                // Execute the first query
+                var paramRequestID1 = new MySqlParameter("@requestID", requestID);
+                int requestUpdated = db.ExecuteNonQuery(updateRequestQuery, new MySqlParameter[] { paramRequestID1 });
+
+                // Execute the second query
+                var paramRequestID2 = new MySqlParameter("@requestID", requestID);
+                var paramProjectID = new MySqlParameter("@projectID", projectID);
+                int projectUpdated = db.ExecuteNonQuery(updateProjectQuery, new MySqlParameter[] { paramRequestID2, paramProjectID });
 
                 db.Close();
                 return requestUpdated > 0 && projectUpdated > 0;
             }
         }
+
+
     }
 }

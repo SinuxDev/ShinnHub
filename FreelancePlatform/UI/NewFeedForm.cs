@@ -158,5 +158,11 @@ namespace FreelancePlatform.UI
             }
         }
 
+        private void OwnProjectCheckButton_Click(object sender, EventArgs e)
+        {
+            FreelancerDashboard freelancerDashboard = new FreelancerDashboard(userID);
+            freelancerDashboard.Show();
+            this.Hide();
+        }
     }
 }

@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "FreelancerDashboard";
+            ProjectsFlowLayoutPanel = new FlowLayoutPanel();
+            SuspendLayout();
+            // 
+            // ProjectsFlowLayoutPanel
+            // 
+            ProjectsFlowLayoutPanel.Dock = DockStyle.Right;
+            ProjectsFlowLayoutPanel.Location = new Point(336, 0);
+            ProjectsFlowLayoutPanel.Name = "ProjectsFlowLayoutPanel";
+            ProjectsFlowLayoutPanel.Size = new Size(464, 450);
+            ProjectsFlowLayoutPanel.TabIndex = 0;
+            // 
+            // FreelancerDashboard
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
+            ClientSize = new Size(800, 450);
+            Controls.Add(ProjectsFlowLayoutPanel);
+            Name = "FreelancerDashboard";
+            Text = "FreelancerDashboard";
+            Load += FreelancerDashboard_Load;
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private FlowLayoutPanel ProjectsFlowLayoutPanel;
     }
 }

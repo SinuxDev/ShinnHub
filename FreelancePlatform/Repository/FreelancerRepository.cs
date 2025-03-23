@@ -1,5 +1,7 @@
 ﻿using FreelancePlatform.Models;
 using MySql.Data.MySqlClient;
+using System.Data;
+using static FreelancePlatform.Repository.ProjectRepository;
 
 namespace FreelancePlatform.Repository
 {
@@ -51,6 +53,37 @@ namespace FreelancePlatform.Repository
 
                 return Convert.ToInt32(result) > 0; // If count > 0, profile exists
             }
+        }
+
+        public List<Project> GetOngoingProjectsForFreelancer(int freelancerID)
+        {
+            List<Project> projects = new List<Project>();
+            string query = "SELECT * FROM Project WHERE relatedProjectFreelancerID = @FreelancerID AND isDone = 0";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@FreelancerID", freelancerID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.GetString("projectTitle"),
+                                ProjectDeadline = reader.IsDBNull("projectDeadline") ? null : reader.GetString("projectDeadline"),
+                                ProjectDescription = reader.IsDBNull("projectDescription") ? null : reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                isDone = reader.GetInt32("isDone")
+                            });
+                        }
+                    }
+                }
+            }
+            return projects;
         }
 
     }
