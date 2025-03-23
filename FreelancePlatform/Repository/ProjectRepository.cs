@@ -74,7 +74,7 @@ namespace FreelancePlatform.Repository
         public List<Project> GetAllProjects()
         {
             List<Project> projects = new List<Project>();
-            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project";
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project WHERE isDone = 0";
 
             using (var db = new dbConnection())
             {

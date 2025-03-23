@@ -128,5 +128,11 @@ namespace FreelancePlatform.UI
             return panel;
         }
 
+        private void ProjectRequestListShowForm_Click(object sender, EventArgs e)
+        {
+            ProjectRequestForm projectRequestForm = new ProjectRequestForm(clientID);
+            projectRequestForm.Show();
+            this.Hide();
+        }
     }
 }

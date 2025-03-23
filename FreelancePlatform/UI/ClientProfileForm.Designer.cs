@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             ClientProfileCheckButton = new Guna.UI2.WinForms.Guna2GradientTileButton();
             CreatePostRedirectButton = new Guna.UI2.WinForms.Guna2GradientTileButton();
             label1 = new Label();
@@ -44,12 +46,13 @@
             DynamicClientIndustry = new Label();
             panel1 = new Panel();
             ProjectFlowLayoutPanel = new FlowLayoutPanel();
+            ProjectRequestListShowForm = new Guna.UI2.WinForms.Guna2GradientTileButton();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // ClientProfileCheckButton
             // 
-            ClientProfileCheckButton.CustomizableEdges = customizableEdges17;
+            ClientProfileCheckButton.CustomizableEdges = customizableEdges1;
             ClientProfileCheckButton.DisabledState.BorderColor = Color.DarkGray;
             ClientProfileCheckButton.DisabledState.CustomBorderColor = Color.DarkGray;
             ClientProfileCheckButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -60,14 +63,14 @@
             ClientProfileCheckButton.ForeColor = Color.Black;
             ClientProfileCheckButton.Location = new Point(51, 55);
             ClientProfileCheckButton.Name = "ClientProfileCheckButton";
-            ClientProfileCheckButton.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            ClientProfileCheckButton.ShadowDecoration.CustomizableEdges = customizableEdges2;
             ClientProfileCheckButton.Size = new Size(115, 43);
             ClientProfileCheckButton.TabIndex = 2;
             ClientProfileCheckButton.Text = "Your Profile";
             // 
             // CreatePostRedirectButton
             // 
-            CreatePostRedirectButton.CustomizableEdges = customizableEdges19;
+            CreatePostRedirectButton.CustomizableEdges = customizableEdges3;
             CreatePostRedirectButton.DisabledState.BorderColor = Color.DarkGray;
             CreatePostRedirectButton.DisabledState.CustomBorderColor = Color.DarkGray;
             CreatePostRedirectButton.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
@@ -76,9 +79,9 @@
             CreatePostRedirectButton.FillColor = Color.FromArgb(255, 192, 192);
             CreatePostRedirectButton.Font = new Font("Segoe UI", 9F);
             CreatePostRedirectButton.ForeColor = Color.Black;
-            CreatePostRedirectButton.Location = new Point(269, 55);
+            CreatePostRedirectButton.Location = new Point(230, 55);
             CreatePostRedirectButton.Name = "CreatePostRedirectButton";
-            CreatePostRedirectButton.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            CreatePostRedirectButton.ShadowDecoration.CustomizableEdges = customizableEdges4;
             CreatePostRedirectButton.Size = new Size(115, 43);
             CreatePostRedirectButton.TabIndex = 3;
             CreatePostRedirectButton.Text = "Create Post";
@@ -180,11 +183,31 @@
             ProjectFlowLayoutPanel.Size = new Size(932, 660);
             ProjectFlowLayoutPanel.TabIndex = 12;
             // 
+            // ProjectRequestListShowForm
+            // 
+            ProjectRequestListShowForm.CustomizableEdges = customizableEdges5;
+            ProjectRequestListShowForm.DisabledState.BorderColor = Color.DarkGray;
+            ProjectRequestListShowForm.DisabledState.CustomBorderColor = Color.DarkGray;
+            ProjectRequestListShowForm.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            ProjectRequestListShowForm.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
+            ProjectRequestListShowForm.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            ProjectRequestListShowForm.FillColor = Color.FromArgb(255, 192, 192);
+            ProjectRequestListShowForm.Font = new Font("Segoe UI", 9F);
+            ProjectRequestListShowForm.ForeColor = Color.Black;
+            ProjectRequestListShowForm.Location = new Point(410, 55);
+            ProjectRequestListShowForm.Name = "ProjectRequestListShowForm";
+            ProjectRequestListShowForm.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            ProjectRequestListShowForm.Size = new Size(115, 43);
+            ProjectRequestListShowForm.TabIndex = 13;
+            ProjectRequestListShowForm.Text = "Request Lists";
+            ProjectRequestListShowForm.Click += ProjectRequestListShowForm_Click;
+            // 
             // ClientProfileForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1484, 660);
+            Controls.Add(ProjectRequestListShowForm);
             Controls.Add(ProjectFlowLayoutPanel);
             Controls.Add(panel1);
             Controls.Add(CreatePostRedirectButton);
@@ -211,5 +234,6 @@
         private Label DynamicClientIndustry;
         private Panel panel1;
         private FlowLayoutPanel ProjectFlowLayoutPanel;
+        private Guna.UI2.WinForms.Guna2GradientTileButton ProjectRequestListShowForm;
     }
 }

@@ -1,5 +1,5 @@
-﻿using FreelancePlatform.Repository;
-
+﻿using FreelancePlatform.Models; // ✅ Import the separate ProjectRequest model
+using FreelancePlatform.Repository;
 
 namespace FreelancePlatform.Services
 {
@@ -19,9 +19,34 @@ namespace FreelancePlatform.Services
                 throw new ArgumentException("All fields must be provided.");
             }
 
-
             int result = repository.AddProjectRequest(relatedProject, relatedProjectTitle, relatedClientID, relatedFreelancer);
             return result > 0;
+        }
+
+        public List<ProjectRequest> GetRequestsForClient(int clientID)
+        {
+            var repoRequests = repository.GetRequestsForClient(clientID);
+
+            var serviceRequests = repoRequests.Select(r => new ProjectRequest
+            {
+                ID = r.ID,
+                RelatedProject = r.RelatedProject,
+                RelatedProjectTitle = r.RelatedProjectTitle,
+                RelatedFreelancer = r.RelatedFreelancer,
+                Status = r.Status
+            }).ToList();
+
+            return serviceRequests;
+        }
+
+        public bool AcceptProjectRequest(int requestID, int projectID)
+        {
+            if (requestID <= 0 || projectID <= 0)
+            {
+                throw new ArgumentException("Request ID and Project ID must be provided.");
+            }
+
+            return repository.AcceptProjectRequest(requestID, projectID);
         }
     }
 }
