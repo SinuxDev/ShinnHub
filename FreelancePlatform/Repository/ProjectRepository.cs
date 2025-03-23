@@ -1,5 +1,6 @@
 ﻿using FreelancePlatform.Models;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace FreelancePlatform.Repository
 {
@@ -34,6 +35,7 @@ namespace FreelancePlatform.Repository
             public decimal ProjectBudget { get; set; }
             public string? ProjectDeadline { get; set; }
             public string? ProjectSkills { get; set; }
+            public int RelatedClientID { get; set; }
         }
 
 
@@ -68,6 +70,70 @@ namespace FreelancePlatform.Repository
             }
             return projects;
         }
+
+        public List<Project> GetAllProjects()
+        {
+            List<Project> projects = new List<Project>();
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.GetString("projectTitle"),
+                                ProjectDescription = reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                ProjectDeadline = reader.GetString("projectDeadline"),
+                                ProjectSkills = reader.GetString("projectSkills")
+                            });
+                        }
+                    }
+                }
+            }
+            return projects;
+        }
+
+        public Project GetProjectDetails(int projectID)
+        {
+            Project? project = null;
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills, relatedClient FROM Project WHERE projectID = @ProjectID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@ProjectID", projectID);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            project = new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.IsDBNull("projectTitle") ? "Untitled Project" : reader.GetString("projectTitle"),
+                                ProjectDescription = reader.IsDBNull("projectDescription") ? null : reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                ProjectDeadline = reader.IsDBNull("projectDeadline") ? null : reader.GetString("projectDeadline"),
+                                ProjectSkills = reader.IsDBNull("projectSkills") ? null : reader.GetString("projectSkills"),
+                                RelatedClientID = reader.GetInt32("relatedClient")
+                            };
+                        }
+                    }
+                }
+            }
+
+            return project ?? throw new Exception("Project not found");
+        }
+
 
     }
 }

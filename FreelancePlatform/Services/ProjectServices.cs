@@ -25,4 +25,14 @@ public class ProjectServices
     {
         return repository.GetProjectsByClientID(clientID);
     }
+
+    public List<Project> GetAllProjects()
+    {
+        return repository.GetAllProjects();
+    }
+
+    public Project GetProjectDetails(int projectID)
+    {
+        return repository.GetProjectDetails(projectID);
+    }
 }

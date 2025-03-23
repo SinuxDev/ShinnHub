@@ -28,13 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            ProjectsFlowLayoutPanel = new FlowLayoutPanel();
             SuspendLayout();
+            // 
+            // ProjectsFlowLayoutPanel
+            // 
+            ProjectsFlowLayoutPanel.Dock = DockStyle.Right;
+            ProjectsFlowLayoutPanel.Location = new Point(415, 0);
+            ProjectsFlowLayoutPanel.Name = "ProjectsFlowLayoutPanel";
+            ProjectsFlowLayoutPanel.Size = new Size(598, 541);
+            ProjectsFlowLayoutPanel.TabIndex = 0;
             // 
             // NewFeedForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1013, 541);
+            Controls.Add(ProjectsFlowLayoutPanel);
             Name = "NewFeedForm";
             Text = "NewFeedForm";
             Load += NewFeedForm_Load;
@@ -42,5 +52,7 @@
         }
 
         #endregion
+
+        private FlowLayoutPanel ProjectsFlowLayoutPanel;
     }
 }
