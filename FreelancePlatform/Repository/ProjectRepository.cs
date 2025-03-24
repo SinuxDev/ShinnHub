@@ -37,6 +37,7 @@ namespace FreelancePlatform.Repository
             public string? ProjectSkills { get; set; }
             public int RelatedClientID { get; set; }
             public int isDone { get; set; }
+            public int isApply { get; set; }
         }
 
 
@@ -185,6 +186,25 @@ namespace FreelancePlatform.Repository
                 }
             }
             return projects;
+        }
+
+        public bool UpdateProjectProgress(int projectID, bool isCompleted)
+        {
+            string query = "UPDATE Project SET isDone = @isDone, isShow = @isShow WHERE projectID = @projectID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@isDone", isCompleted ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@isShow", isCompleted ? 1 : 0);
+                    cmd.Parameters.AddWithValue("@projectID", projectID);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
         }
     }
 }

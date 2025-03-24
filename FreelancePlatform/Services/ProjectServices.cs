@@ -46,4 +46,10 @@ public class ProjectServices
         return repository.AddProjectReview(projectID, clientID, reviewText, rating);
     }
 
+    public bool UpdateProjectProgress(int projectID, bool isCompleted)
+    {
+        return repository.UpdateProjectProgress(projectID, isCompleted);
+    }
+
+
 }

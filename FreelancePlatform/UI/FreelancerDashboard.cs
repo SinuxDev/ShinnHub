@@ -1,4 +1,5 @@
 ﻿using FreelancePlatform.Services;
+using FreelancePlatform.UI;
 using static FreelancePlatform.Repository.ProjectRepository;
 
 namespace FreelancePlatform
@@ -83,7 +84,8 @@ namespace FreelancePlatform
                 BackColor = Color.Green,
                 ForeColor = Color.White
             };
-            //updateProgressButton.Click += (s, e) => UpdateProjectProgress(project.ProjectID);
+            updateProgressButton.Click += (s, e) => UpdateProjectProgress(project.ProjectID);
+
 
             // Add controls to panel
             panel.Controls.Add(titleLabel);
@@ -99,12 +101,11 @@ namespace FreelancePlatform
         }
 
 
-        //private void UpdateProjectProgress(int projectID)
-        //{
-        //    // Open a new form where freelancer can update progress
-        //    ProgressUpdateForm progressForm = new ProgressUpdateForm(projectID);
-        //    progressForm.ShowDialog();
-        //}
+        private void UpdateProjectProgress(int projectID)
+        {
+            ProgressUpdateForm progressForm = new ProgressUpdateForm(projectID);
+            progressForm.ShowDialog();
+        }
 
     }
 }
