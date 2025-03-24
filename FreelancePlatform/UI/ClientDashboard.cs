@@ -50,5 +50,12 @@ namespace FreelancePlatform
                 FreelancerProfileFlowLayoutPanel.Controls.Add(profileCard);
             }
         }
+
+        private void RedirectToProjectsToSubmit_Click(object sender, EventArgs e)
+        {
+            ClientSubmitReviewForm clientSubmitReviewForm = new ClientSubmitReviewForm(userID);
+            clientSubmitReviewForm.Show();
+            this.Hide();
+        }
     }
 }

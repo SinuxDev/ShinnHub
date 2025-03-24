@@ -31,6 +31,11 @@ public class ProjectServices
         return repository.GetAllProjects();
     }
 
+    public List<Project> GetAllProjectsToSubmit()
+    {
+        return repository.GetAllProjectsToSubmit();
+    }
+
     public Project GetProjectDetails(int projectID)
     {
         return repository.GetProjectDetails(projectID);

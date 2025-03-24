@@ -156,5 +156,35 @@ namespace FreelancePlatform.Repository
                 return rowsAffected > 0;
             }
         }
+
+        public List<Project> GetAllProjectsToSubmit()
+        {
+            List<Project> projects = new List<Project>();
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills FROM Project WHERE isDone = 1";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.GetString("projectTitle"),
+                                ProjectDescription = reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                ProjectDeadline = reader.GetString("projectDeadline"),
+                                ProjectSkills = reader.GetString("projectSkills")
+                            });
+                        }
+                    }
+                }
+            }
+            return projects;
+        }
     }
 }
