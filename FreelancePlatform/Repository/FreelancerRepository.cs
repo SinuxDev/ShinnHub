@@ -159,5 +159,39 @@ namespace FreelancePlatform.Repository
             return freelancers;
         }
 
+        public List<Project> GetFreelancerCompletedProjects(int freelancerID)
+        {
+            List<Project> projects = new List<Project>();
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills " +
+                           "FROM Project WHERE isDone = 1 AND relatedProjectFreelancerID = @freelancerID";
+
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                using (var cmd = new MySqlCommand(query, db.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@freelancerID", freelancerID);
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            projects.Add(new Project
+                            {
+                                ProjectID = reader.GetInt32("projectID"),
+                                ProjectTitle = reader.GetString("projectTitle"),
+                                ProjectDescription = reader.GetString("projectDescription"),
+                                ProjectBudget = reader.GetDecimal("projectBudget"),
+                                ProjectDeadline = reader.GetString("projectDeadline"),
+                                ProjectSkills = reader.GetString("projectSkills")
+                            });
+                        }
+                    }
+                }
+            }
+            return projects;
+        }
+
+
     }
 }

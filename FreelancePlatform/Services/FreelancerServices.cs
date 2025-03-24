@@ -49,4 +49,10 @@ public class FreelancerService
     {
         return repository.GetAllFreelancers();
     }
+
+    public List<Project> GetFreelancerCompletedProjects(int freelancerID)
+    {
+        return repository.GetFreelancerCompletedProjects(freelancerID);
+    }
+
 }

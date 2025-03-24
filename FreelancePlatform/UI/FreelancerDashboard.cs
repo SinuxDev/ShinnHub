@@ -19,6 +19,7 @@ namespace FreelancePlatform
         private void FreelancerDashboard_Load(object sender, EventArgs e)
         {
             LoadFreelancerProjects();
+            LoadCompletedProjects();
         }
 
         private void LoadFreelancerProjects()
@@ -105,6 +106,73 @@ namespace FreelancePlatform
         {
             ProgressUpdateForm progressForm = new ProgressUpdateForm(projectID);
             progressForm.ShowDialog();
+        }
+
+        private void LoadCompletedProjects()
+        {
+            List<Project> completedProjects = freelancerService.GetFreelancerCompletedProjects(FreelancerID);
+
+            CompletedFlowLayoutPanel.Controls.Clear();
+
+            if (completedProjects.Count > 0)
+            {
+                foreach (var project in completedProjects)
+                {
+                    Panel projectPanel = CreateCompletedProjectPanel(project);
+                    CompletedFlowLayoutPanel.Controls.Add(projectPanel);
+                }
+            }
+            else
+            {
+                Label noProjectsLabel = new Label
+                {
+                    Text = "No completed projects.",
+                    AutoSize = true,
+                    ForeColor = Color.Gray
+                };
+                CompletedFlowLayoutPanel.Controls.Add(noProjectsLabel);
+            }
+        }
+
+
+
+        private Panel CreateCompletedProjectPanel(Project project)
+        {
+            Panel panel = new Panel
+            {
+                Width = CompletedFlowLayoutPanel.Width - 20,
+                Height = 150,
+                BorderStyle = BorderStyle.FixedSingle,
+                Padding = new Padding(10),
+                BackColor = Color.LightGreen // Different color for completed projects
+            };
+
+            // Project Title
+            Label titleLabel = new Label
+            {
+                Text = project.ProjectTitle,
+                Font = new Font("Arial", 12, FontStyle.Bold),
+                AutoSize = true
+            };
+
+            // Deadline Label
+            Label deadlineLabel = new Label
+            {
+                Text = $"Completed on: {project.ProjectDeadline}",
+                ForeColor = Color.DarkGreen,
+                Font = new Font("Arial", 10, FontStyle.Italic),
+                AutoSize = true
+            };
+
+            // Add controls to panel
+            panel.Controls.Add(titleLabel);
+            panel.Controls.Add(deadlineLabel);
+
+            // Arrange controls
+            titleLabel.Location = new Point(10, 10);
+            deadlineLabel.Location = new Point(10, 40);
+
+            return panel;
         }
 
     }
