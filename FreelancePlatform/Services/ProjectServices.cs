@@ -35,4 +35,10 @@ public class ProjectServices
     {
         return repository.GetProjectDetails(projectID);
     }
+
+    public bool SubmitReview(int projectID, int clientID, string reviewText, decimal rating)
+    {
+        return repository.AddProjectReview(projectID, clientID, reviewText, rating);
+    }
+
 }

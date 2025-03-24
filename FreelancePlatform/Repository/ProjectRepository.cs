@@ -136,6 +136,25 @@ namespace FreelancePlatform.Repository
             return project ?? throw new Exception("Project not found");
         }
 
+        public bool AddProjectReview(int projectID, int clientID, string reviewText, decimal rating)
+        {
+            string query = "UPDATE Project SET reviewText = @reviewText, rating = @rating, reviewedByClientID = @clientID, reviewDate = NOW() WHERE projectID = @projectID";
 
+            using (var db = new dbConnection())
+            {
+                db.Open();
+                var parameters = new MySqlParameter[]
+                {
+            new MySqlParameter("@reviewText", reviewText),
+            new MySqlParameter("@rating", rating),
+            new MySqlParameter("@clientID", clientID),
+            new MySqlParameter("@projectID", projectID)
+                };
+
+                int rowsAffected = db.ExecuteNonQuery(query, parameters);
+                db.Close();
+                return rowsAffected > 0;
+            }
+        }
     }
 }
