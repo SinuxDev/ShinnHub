@@ -133,7 +133,7 @@ namespace FreelancePlatform.UI
                 return;
             }
 
-            if (project.isDone == 1)
+            if (project.isApply == 1)
             {
                 MessageBox.Show("This project is already applied by others. You cannot apply.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
