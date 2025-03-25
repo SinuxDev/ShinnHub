@@ -12,6 +12,8 @@ namespace FreelancePlatform.UI
             InitializeComponent();
             this.projectID = projectID;
             projectServices = new ProjectServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void ProgressUpdateForm_Load(object sender, EventArgs e)
@@ -28,6 +30,14 @@ namespace FreelancePlatform.UI
             if (success)
             {
                 MessageBox.Show("Project progress updated successfully!");
+
+                if (Application.OpenForms["FreelancerDashboard"] is FreelancerDashboard freelancerDashboard)
+                {
+                    freelancerDashboard.LoadFreelancerProjects();
+                    freelancerDashboard.LoadCompletedProjects();
+                }
+
+
                 this.Close();
             }
             else

@@ -30,6 +30,8 @@
         {
             chkMarkAsDone = new Guna.UI2.WinForms.Guna2CheckBox();
             SubmitProgressButton = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // chkMarkAsDone
@@ -39,7 +41,7 @@
             chkMarkAsDone.CheckedState.BorderRadius = 0;
             chkMarkAsDone.CheckedState.BorderThickness = 0;
             chkMarkAsDone.CheckedState.FillColor = Color.FromArgb(94, 148, 255);
-            chkMarkAsDone.Location = new Point(215, 98);
+            chkMarkAsDone.Location = new Point(121, 100);
             chkMarkAsDone.Name = "chkMarkAsDone";
             chkMarkAsDone.Size = new Size(67, 24);
             chkMarkAsDone.TabIndex = 0;
@@ -51,7 +53,7 @@
             // 
             // SubmitProgressButton
             // 
-            SubmitProgressButton.Location = new Point(236, 217);
+            SubmitProgressButton.Location = new Point(101, 165);
             SubmitProgressButton.Name = "SubmitProgressButton";
             SubmitProgressButton.Size = new Size(102, 43);
             SubmitProgressButton.TabIndex = 1;
@@ -59,23 +61,34 @@
             SubmitProgressButton.UseVisualStyleBackColor = true;
             SubmitProgressButton.Click += SubmitProgressButton_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Thistle;
+            panel1.Controls.Add(SubmitProgressButton);
+            panel1.Controls.Add(chkMarkAsDone);
+            panel1.Location = new Point(2, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(338, 320);
+            panel1.TabIndex = 2;
+            // 
             // ProgressUpdateForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(SubmitProgressButton);
-            Controls.Add(chkMarkAsDone);
+            ClientSize = new Size(337, 316);
+            Controls.Add(panel1);
             Name = "ProgressUpdateForm";
             Text = "ProgressUpdateForm";
             Load += ProgressUpdateForm_Load;
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Guna.UI2.WinForms.Guna2CheckBox chkMarkAsDone;
         private Button SubmitProgressButton;
+        private Panel panel1;
     }
 }

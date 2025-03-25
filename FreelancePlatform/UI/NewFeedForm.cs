@@ -17,6 +17,8 @@ namespace FreelancePlatform.UI
             this.userID = userID;
             this.userName = userName;
             projectService = new ProjectServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void NewFeedForm_Load(object sender, EventArgs e)
@@ -160,9 +162,16 @@ namespace FreelancePlatform.UI
 
         private void OwnProjectCheckButton_Click(object sender, EventArgs e)
         {
-            FreelancerDashboard freelancerDashboard = new FreelancerDashboard(userID);
+            FreelancerDashboard freelancerDashboard = new FreelancerDashboard(userID, userName);
             freelancerDashboard.Show();
             this.Hide();
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

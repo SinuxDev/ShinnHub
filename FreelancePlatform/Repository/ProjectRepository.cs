@@ -106,7 +106,7 @@ namespace FreelancePlatform.Repository
         public Project GetProjectDetails(int projectID)
         {
             Project? project = null;
-            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills, relatedClient, isDone FROM Project WHERE projectID = @ProjectID";
+            string query = "SELECT projectID, projectTitle, projectDescription, projectBudget, projectDeadline, projectSkills, relatedClient, isDone, isApply FROM Project WHERE projectID = @ProjectID";
 
             using (var db = new dbConnection())
             {
@@ -127,7 +127,8 @@ namespace FreelancePlatform.Repository
                                 ProjectDeadline = reader.IsDBNull("projectDeadline") ? null : reader.GetString("projectDeadline"),
                                 ProjectSkills = reader.IsDBNull("projectSkills") ? null : reader.GetString("projectSkills"),
                                 RelatedClientID = reader.GetInt32("relatedClient"),
-                                isDone = reader.GetInt32("isDone")
+                                isDone = reader.GetInt32("isDone"),
+                                isApply = reader.GetInt32("isApply")
                             };
                         }
                     }

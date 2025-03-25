@@ -7,13 +7,17 @@ namespace FreelancePlatform
     public partial class FreelancerDashboard : Form
     {
         private int FreelancerID;
+        private string FreelancerName;
         private readonly FreelancerService freelancerService = new FreelancerService();
 
-        public FreelancerDashboard(int FreelancerID)
+        public FreelancerDashboard(int FreelancerID, string freelancerName)
         {
             InitializeComponent();
             this.FreelancerID = FreelancerID;
             freelancerService = new FreelancerService();
+            FreelancerName = freelancerName;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void FreelancerDashboard_Load(object sender, EventArgs e)
@@ -22,7 +26,7 @@ namespace FreelancePlatform
             LoadCompletedProjects();
         }
 
-        private void LoadFreelancerProjects()
+        public void LoadFreelancerProjects()
         {
             List<Project> projects = freelancerService.GetFreelancerOngoingProjects(FreelancerID);
 
@@ -108,7 +112,7 @@ namespace FreelancePlatform
             progressForm.ShowDialog();
         }
 
-        private void LoadCompletedProjects()
+        public void LoadCompletedProjects()
         {
             List<Project> completedProjects = freelancerService.GetFreelancerCompletedProjects(FreelancerID);
 
@@ -158,7 +162,7 @@ namespace FreelancePlatform
             // Deadline Label
             Label deadlineLabel = new Label
             {
-                Text = $"Completed on: {project.ProjectDeadline}",
+                Text = $"Completed on: {project.ProjectDeadline} Days",
                 ForeColor = Color.DarkGreen,
                 Font = new Font("Arial", 10, FontStyle.Italic),
                 AutoSize = true
@@ -175,5 +179,18 @@ namespace FreelancePlatform
             return panel;
         }
 
+        private void NewFeedsButton_Click(object sender, EventArgs e)
+        {
+            NewFeedForm newFeedForm = new NewFeedForm(FreelancerID, FreelancerName);
+            newFeedForm.Show();
+            this.Close();
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

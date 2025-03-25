@@ -57,6 +57,10 @@ namespace FreelancePlatform.UI
                 {
                     MessageBox.Show("Project posted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
+
+                    ClientDashboard clientDashboard = new ClientDashboard(userID);
+                    clientDashboard.Show();
+                    this.Close();
                 }
                 else
                 {
