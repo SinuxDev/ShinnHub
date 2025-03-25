@@ -14,7 +14,7 @@
 
         private void GetStartedButton2_Click(object sender, EventArgs e)
         {
-            SkillsSetUpFormTwo skillsSetUpFormTwo = new SkillsSetUpFormTwo(userID, userName);
+            SkillsSetUpFormTwo skillsSetUpFormTwo = new SkillsSetUpFormTwo(userID, userName, this);
             skillsSetUpFormTwo.Show();
             this.Hide();
         }

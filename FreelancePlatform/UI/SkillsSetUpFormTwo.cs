@@ -6,6 +6,7 @@ namespace FreelancePlatform.UI
     {
         private int userID;
         private string userName;
+        private SkillsSetUpFormOne previousForm;
 
         private Dictionary<string, List<string>> industrySkills = new Dictionary<string, List<string>>
         {
@@ -21,15 +22,39 @@ namespace FreelancePlatform.UI
 
         private bool isUpdating = false;
 
-        public SkillsSetUpFormTwo(int userID, string userName)
+        public SkillsSetUpFormTwo(int userID, string userName, SkillsSetUpFormOne previousForm)
         {
             InitializeComponent();
             industrySelectBox.SelectedIndexChanged += industrySelectBox_SelectedIndexChanged;
             skillsOneComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
             skillsTwoComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
             skillsThreeComboBox.SelectedIndexChanged += SkillsComboBox_SelectedIndexChanged;
+
             this.userID = userID;
             this.userName = userName;
+            this.previousForm = previousForm;
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            if (previousForm == null)
+            {
+                MessageBox.Show("Previous form reference is NULL", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (previousForm.IsDisposed)
+            {
+                MessageBox.Show("Previous form has been disposed!", "Debug", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            this.Hide();
+            previousForm.Show();
+
         }
 
         private void industrySelectBox_SelectedIndexChanged(object? sender, EventArgs e)
@@ -129,6 +154,24 @@ namespace FreelancePlatform.UI
             string userPhone = UserPhoneTextBox.Text.Trim();
             string userRegion = UserRegionTextBox.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(userRole) || string.IsNullOrWhiteSpace(userBio) || string.IsNullOrWhiteSpace(userCountry) || string.IsNullOrWhiteSpace(userAddress) || string.IsNullOrWhiteSpace(userPhone) || string.IsNullOrWhiteSpace(userRegion))
+            {
+                MessageBox.Show("All fields are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(userPhone, @"^\+?\d+$"))
+            {
+                MessageBox.Show("Invalid phone number. Only numbers and an optional '+' at the beginning are allowed.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (userBio.Length > 500)
+            {
+                MessageBox.Show("Bio should not exceed 500 characters.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (industrySelectBox.SelectedItem == null || skillsOneComboBox.SelectedItem == null || skillsTwoComboBox.SelectedItem == null || skillsThreeComboBox.SelectedItem == null)
             {
                 MessageBox.Show("Please select industry and skills.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -151,7 +194,9 @@ namespace FreelancePlatform.UI
             if (isRegistered)
             {
                 MessageBox.Show("Freelancer profile created successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                this.Hide();
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
             }
             else
             {
