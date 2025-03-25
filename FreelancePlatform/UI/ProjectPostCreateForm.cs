@@ -18,7 +18,9 @@ namespace FreelancePlatform.UI
 
         private void ClientCreateProjectButton_Click(object sender, EventArgs e)
         {
-
+            ProjectPostCreateForm projectPostCreateForm = new ProjectPostCreateForm(userID);
+            projectPostCreateForm.Show();
+            this.Close();
         }
 
         private void PostProjectButton_Click(object sender, EventArgs e)
@@ -81,6 +83,20 @@ namespace FreelancePlatform.UI
             ClientProfileForm clientProfileForm = new ClientProfileForm(userID);
             clientProfileForm.Show();
             this.Hide();
+        }
+
+        private void ProjectRequestListShowForm_Click(object sender, EventArgs e)
+        {
+            ProjectRequestForm projectRequestForm = new ProjectRequestForm(userID);
+            projectRequestForm.Show();
+            this.Hide();
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

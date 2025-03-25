@@ -29,6 +29,12 @@ namespace FreelancePlatform.UI
             string reviewText = reviewTextBox.Text;
             decimal rating;
 
+            if (string.IsNullOrWhiteSpace(reviewText))
+            {
+                MessageBox.Show("Please enter a review.");
+                return;
+            }
+
             if (!decimal.TryParse(ratingNumericUpDown.Text, out rating))
             {
                 MessageBox.Show("Invalid rating. Please enter a valid number.");

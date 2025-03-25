@@ -108,5 +108,25 @@ namespace FreelancePlatform.UI
             }
         }
 
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
+
+        private void ClientProfileCheckButton_Click(object sender, EventArgs e)
+        {
+            ClientProfileForm clientProfileForm = new ClientProfileForm(clientID);
+            clientProfileForm.Show();
+            this.Close();
+        }
+
+        private void RedirectToProjectsToSubmit_Click(object sender, EventArgs e)
+        {
+            ProjectPostCreateForm projectPostCreateForm = new ProjectPostCreateForm(clientID);
+            projectPostCreateForm.Show();
+            this.Close();
+        }
     }
 }
