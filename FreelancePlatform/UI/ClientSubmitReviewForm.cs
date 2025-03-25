@@ -13,6 +13,8 @@ namespace FreelancePlatform.UI
             InitializeComponent();
             this.userID = userID;
             projectService = new ProjectServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void ClientSubmitReviewForm_Load(object sender, EventArgs e)
@@ -29,41 +31,55 @@ namespace FreelancePlatform.UI
             {
                 Panel projectPanel = new Panel
                 {
-                    Width = projectsFlowLayoutPanel.Width - 20,
-                    Height = 120,
+                    Width = projectsFlowLayoutPanel.Width / 2 - 20, // Reduce width (half of FlowLayoutPanel width)
+                    Height = 160, // Increase height to accommodate button on new line
                     BorderStyle = BorderStyle.FixedSingle,
-                    Padding = new Padding(10)
+                    Padding = new Padding(10),
+                    Margin = new Padding(5),
+                    BackColor = System.Drawing.Color.White // Add white background
                 };
 
                 Label titleLabel = new Label
                 {
                     Text = $"📌 {project.ProjectTitle}",
-                    Font = new Font("Arial", 10, FontStyle.Bold),
-                    AutoSize = true
+                    Font = new System.Drawing.Font("Arial", 10, System.Drawing.FontStyle.Bold),
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(10, 10),
+                    ForeColor = System.Drawing.Color.Black
                 };
 
                 Label descLabel = new Label
                 {
                     Text = $"📖 {project.ProjectDescription}",
-                    AutoSize = true
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(10, 35),
+                    ForeColor = System.Drawing.Color.Black
                 };
 
                 Label budgetLabel = new Label
                 {
-                    Text = $"💰 Budget: ${project.ProjectBudget}",
-                    AutoSize = true
+                    Text = $"💰 Budget: ${project.ProjectBudget:N2}",
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(10, 60),
+                    ForeColor = System.Drawing.Color.Black
                 };
 
                 Label deadlineLabel = new Label
                 {
                     Text = $"⏳ Deadline: {project.ProjectDeadline}",
-                    AutoSize = true
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(10, 85),
+                    ForeColor = System.Drawing.Color.Black
                 };
 
                 Button reviewButton = new Button
                 {
                     Text = "Submit Review",
-                    AutoSize = true
+                    AutoSize = true,
+                    Location = new System.Drawing.Point(10, 115),
+                    FlatStyle = FlatStyle.Flat,
+                    FlatAppearance = { BorderSize = 1 },
+                    ForeColor = System.Drawing.Color.Black
                 };
 
                 reviewButton.Click += (s, e) => OpenReviewForm(project.ProjectID);
@@ -74,13 +90,6 @@ namespace FreelancePlatform.UI
                 projectPanel.Controls.Add(deadlineLabel);
                 projectPanel.Controls.Add(reviewButton);
 
-                // Adjust layout
-                titleLabel.Location = new Point(5, 5);
-                descLabel.Location = new Point(5, 30);
-                budgetLabel.Location = new Point(5, 55);
-                deadlineLabel.Location = new Point(5, 80);
-                reviewButton.Location = new Point(5, 100);
-
                 projectsFlowLayoutPanel.Controls.Add(projectPanel);
             }
         }
@@ -89,6 +98,34 @@ namespace FreelancePlatform.UI
         {
             SubmitReviewForm submitReviewForm = new SubmitReviewForm(userID, projectID);
             submitReviewForm.Show();
+        }
+
+        private void ClientProfileCheckButton_Click(object sender, EventArgs e)
+        {
+            ClientProfileForm clientProfileForm = new ClientProfileForm(userID);
+            clientProfileForm.Show();
+            this.Close();
+        }
+
+        private void ClientCreatePostButtonClicked_Click(object sender, EventArgs e)
+        {
+            ProjectPostCreateForm projectPostCreateForm = new ProjectPostCreateForm(userID);
+            projectPostCreateForm.Show();
+            this.Close();
+        }
+
+        private void ProjectRequestListsButton_Click(object sender, EventArgs e)
+        {
+            ProjectRequestForm projectRequestForm = new ProjectRequestForm(userID);
+            projectRequestForm.Show();
+            this.Close();
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
         }
     }
 }

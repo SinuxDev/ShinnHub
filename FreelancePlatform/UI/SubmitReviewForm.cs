@@ -14,6 +14,8 @@ namespace FreelancePlatform.UI
             this.userID = userID;
             this.projectID = projectID;
             projectServices = new ProjectServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void SubmitReviewForm_Load(object sender, EventArgs e)
