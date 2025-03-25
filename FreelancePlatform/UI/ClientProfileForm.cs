@@ -16,6 +16,8 @@ namespace FreelancePlatform.UI
             this.clientID = clientID;
             projectService = new ProjectServices();
             clientServices = new ClientServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void ClientProfileForm_Load(object sender, EventArgs e)
@@ -79,10 +81,11 @@ namespace FreelancePlatform.UI
         {
             Panel panel = new Panel
             {
-                Size = new Size(400, 150),  // Adjust size as needed
+                Size = new Size(400, 180),  // Adjust size as needed
                 BorderStyle = BorderStyle.FixedSingle,
                 Padding = new Padding(10),
-                Margin = new Padding(5)
+                Margin = new Padding(5),
+                BackColor = Color.White // Set background color for better visibility
             };
 
             Label titleLabel = new Label
@@ -90,7 +93,8 @@ namespace FreelancePlatform.UI
                 Text = project.ProjectTitle,
                 Font = new Font("Arial", 12, FontStyle.Bold),
                 AutoSize = true,
-                Location = new Point(10, 10)
+                Location = new Point(10, 10),
+                ForeColor = Color.Black // Ensure text is visible
             };
 
             Label descriptionLabel = new Label
@@ -98,22 +102,27 @@ namespace FreelancePlatform.UI
                 Text = project.ProjectDescription,
                 AutoSize = true,
                 Location = new Point(10, 40),
-                MaximumSize = new Size(380, 40)  // Wrap text if too long
+                MaximumSize = new Size(380, 40),  // Wrap text if too long
+                ForeColor = Color.Black // Ensure text is visible
             };
 
             Label budgetLabel = new Label
             {
-                Text = $"Budget: ${project.ProjectBudget}",
+                Text = $"Budget: ${project.ProjectBudget:N2}", // Format budget as currency
                 Font = new Font("Arial", 10, FontStyle.Italic),
                 AutoSize = true,
-                Location = new Point(10, 90)
+                Location = new Point(10, 90),
+                ForeColor = Color.Black // Ensure text is visible
             };
 
             Button viewButton = new Button
             {
                 Text = "View Details",
                 Size = new Size(100, 30),
-                Location = new Point(10, 120)
+                Location = new Point(10, 120),
+                FlatStyle = FlatStyle.Flat, // Use flat style for a cleaner look
+                FlatAppearance = { BorderSize = 1 }, // Set border size
+                ForeColor = Color.Black // Ensure text is visible
             };
 
             // Add event for View Button (if needed)
@@ -133,6 +142,30 @@ namespace FreelancePlatform.UI
             ProjectRequestForm projectRequestForm = new ProjectRequestForm(clientID);
             projectRequestForm.Show();
             this.Hide();
+        }
+
+        private void ClientDashboard_Click(object sender, EventArgs e)
+        {
+            ClientDashboard clientDashboard = new ClientDashboard(clientID);
+            clientDashboard.Show();
+            this.Close();
+        }
+
+        private void LogOutButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to log out?",
+                "Confirm Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+                this.Close();
+            }
         }
     }
 }
