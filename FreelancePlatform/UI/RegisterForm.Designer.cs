@@ -38,15 +38,18 @@
             freelancerRadioButton = new RadioButton();
             radioButton2 = new RadioButton();
             panel1 = new Panel();
-            label1 = new Label();
-            label2 = new Label();
+            ShowPasswordCheckBox = new Guna.UI2.WinForms.Guna2CheckBox();
             LoginFormLinkLabel = new LinkLabel();
+            label2 = new Label();
+            label1 = new Label();
+            panel2 = new Panel();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // userNameText
             // 
-            userNameText.Location = new Point(222, 120);
+            userNameText.Location = new Point(384, 125);
             userNameText.Multiline = true;
             userNameText.Name = "userNameText";
             userNameText.Size = new Size(235, 36);
@@ -54,7 +57,7 @@
             // 
             // userPasswordText
             // 
-            userPasswordText.Location = new Point(222, 194);
+            userPasswordText.Location = new Point(384, 199);
             userPasswordText.Multiline = true;
             userPasswordText.Name = "userPasswordText";
             userPasswordText.Size = new Size(235, 36);
@@ -64,7 +67,7 @@
             // 
             userNameLabel.AutoSize = true;
             userNameLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            userNameLabel.Location = new Point(59, 120);
+            userNameLabel.Location = new Point(193, 125);
             userNameLabel.Name = "userNameLabel";
             userNameLabel.Size = new Size(127, 31);
             userNameLabel.TabIndex = 2;
@@ -74,7 +77,7 @@
             // 
             userPasswordLabel.AutoSize = true;
             userPasswordLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            userPasswordLabel.Location = new Point(76, 194);
+            userPasswordLabel.Location = new Point(193, 199);
             userPasswordLabel.Name = "userPasswordLabel";
             userPasswordLabel.Size = new Size(110, 31);
             userPasswordLabel.TabIndex = 3;
@@ -82,9 +85,10 @@
             // 
             // RegisterButton
             // 
-            RegisterButton.Location = new Point(199, 348);
+            RegisterButton.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            RegisterButton.Location = new Point(333, 381);
             RegisterButton.Name = "RegisterButton";
-            RegisterButton.Size = new Size(115, 49);
+            RegisterButton.Size = new Size(122, 55);
             RegisterButton.TabIndex = 4;
             RegisterButton.Text = "Register";
             RegisterButton.UseVisualStyleBackColor = true;
@@ -92,7 +96,7 @@
             // 
             // userEmailText
             // 
-            userEmailText.Location = new Point(222, 40);
+            userEmailText.Location = new Point(384, 45);
             userEmailText.Multiline = true;
             userEmailText.Name = "userEmailText";
             userEmailText.Size = new Size(235, 33);
@@ -102,7 +106,7 @@
             // 
             UserEmailLabel.AutoSize = true;
             UserEmailLabel.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            UserEmailLabel.Location = new Point(76, 42);
+            UserEmailLabel.Location = new Point(210, 47);
             UserEmailLabel.Name = "UserEmailLabel";
             UserEmailLabel.Size = new Size(70, 31);
             UserEmailLabel.TabIndex = 6;
@@ -112,7 +116,7 @@
             // 
             freelancerRadioButton.AutoSize = true;
             freelancerRadioButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            freelancerRadioButton.Location = new Point(126, 275);
+            freelancerRadioButton.Location = new Point(260, 315);
             freelancerRadioButton.Name = "freelancerRadioButton";
             freelancerRadioButton.Size = new Size(122, 32);
             freelancerRadioButton.TabIndex = 7;
@@ -124,7 +128,7 @@
             // 
             radioButton2.AutoSize = true;
             radioButton2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            radioButton2.Location = new Point(314, 275);
+            radioButton2.Location = new Point(448, 315);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(83, 32);
             radioButton2.TabIndex = 8;
@@ -134,6 +138,8 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.Thistle;
+            panel1.Controls.Add(ShowPasswordCheckBox);
             panel1.Controls.Add(LoginFormLinkLabel);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(userNameLabel);
@@ -145,55 +151,86 @@
             panel1.Controls.Add(UserEmailLabel);
             panel1.Controls.Add(userPasswordLabel);
             panel1.Controls.Add(userEmailText);
-            panel1.Location = new Point(147, 112);
+            panel1.Font = new Font("Microsoft Sans Serif", 8.25F);
+            panel1.Location = new Point(-7, 95);
             panel1.Name = "panel1";
-            panel1.Size = new Size(503, 478);
+            panel1.Size = new Size(822, 616);
             panel1.TabIndex = 9;
             // 
-            // label1
+            // ShowPasswordCheckBox
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(204, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(375, 50);
-            label1.TabIndex = 10;
-            label1.Text = "Join ShinnHub Today!";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(48, 429);
-            label2.Name = "label2";
-            label2.Size = new Size(189, 20);
-            label2.TabIndex = 9;
-            label2.Text = "Already Have An Account ?";
+            ShowPasswordCheckBox.AutoSize = true;
+            ShowPasswordCheckBox.CheckedState.BorderColor = Color.FromArgb(94, 148, 255);
+            ShowPasswordCheckBox.CheckedState.BorderRadius = 0;
+            ShowPasswordCheckBox.CheckedState.BorderThickness = 0;
+            ShowPasswordCheckBox.CheckedState.FillColor = Color.FromArgb(94, 148, 255);
+            ShowPasswordCheckBox.Location = new Point(502, 270);
+            ShowPasswordCheckBox.Name = "ShowPasswordCheckBox";
+            ShowPasswordCheckBox.Size = new Size(129, 21);
+            ShowPasswordCheckBox.TabIndex = 11;
+            ShowPasswordCheckBox.Text = "Show Password";
+            ShowPasswordCheckBox.UncheckedState.BorderColor = Color.FromArgb(125, 137, 149);
+            ShowPasswordCheckBox.UncheckedState.BorderRadius = 0;
+            ShowPasswordCheckBox.UncheckedState.BorderThickness = 0;
+            ShowPasswordCheckBox.UncheckedState.FillColor = Color.FromArgb(125, 137, 149);
+            ShowPasswordCheckBox.CheckedChanged += ShowPasswordCheckBox_CheckedChanged;
             // 
             // LoginFormLinkLabel
             // 
             LoginFormLinkLabel.AutoSize = true;
-            LoginFormLinkLabel.Location = new Point(279, 429);
+            LoginFormLinkLabel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LoginFormLinkLabel.Location = new Point(421, 476);
             LoginFormLinkLabel.Name = "LoginFormLinkLabel";
-            LoginFormLinkLabel.Size = new Size(153, 20);
+            LoginFormLinkLabel.Size = new Size(198, 25);
             LoginFormLinkLabel.TabIndex = 10;
             LoginFormLinkLabel.TabStop = true;
             LoginFormLinkLabel.Text = "Login to your account";
             LoginFormLinkLabel.LinkClicked += LoginFormLinkLabel_LinkClicked;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(152, 476);
+            label2.Name = "label2";
+            label2.Size = new Size(230, 22);
+            label2.TabIndex = 9;
+            label2.Text = "Already Have An Account ?";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("JetBrains Mono NL", 22.1999989F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(180, 24);
+            label1.Name = "label1";
+            label1.Size = new Size(462, 49);
+            label1.TabIndex = 10;
+            label1.Text = "Join ShinnHub Today!";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(128, 128, 255);
+            panel2.Controls.Add(label1);
+            panel2.Location = new Point(-7, -2);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(822, 99);
+            panel2.TabIndex = 11;
+            // 
             // RegisterForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(809, 646);
-            Controls.Add(label1);
+            ClientSize = new Size(809, 707);
+            Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "RegisterForm";
             Text = "Register Form";
             Load += Form1_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -211,5 +248,7 @@
         private Label label1;
         private Label label2;
         private LinkLabel LoginFormLinkLabel;
+        private Panel panel2;
+        private Guna.UI2.WinForms.Guna2CheckBox ShowPasswordCheckBox;
     }
 }
