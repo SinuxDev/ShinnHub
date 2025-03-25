@@ -154,7 +154,7 @@
             panel1.Font = new Font("Microsoft Sans Serif", 8.25F);
             panel1.Location = new Point(-7, 95);
             panel1.Name = "panel1";
-            panel1.Size = new Size(822, 616);
+            panel1.Size = new Size(822, 553);
             panel1.TabIndex = 9;
             // 
             // ShowPasswordCheckBox
@@ -220,7 +220,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(809, 707);
+            ClientSize = new Size(809, 647);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "RegisterForm";
