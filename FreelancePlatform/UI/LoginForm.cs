@@ -1,5 +1,6 @@
 ﻿using FreelancePlatform.Services;
 using FreelancePlatform.UI;
+using System.Text.RegularExpressions;
 namespace FreelancePlatform
 {
     public partial class LoginForm : Form
@@ -10,6 +11,9 @@ namespace FreelancePlatform
         {
             InitializeComponent();
             userService = new UserService();
+            userLoginPasswordTextBox.PasswordChar = '\u25cF';
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void userLoginButton_Click(object sender, EventArgs e)
@@ -23,93 +27,28 @@ namespace FreelancePlatform
                 return;
             }
 
+            if (!IsValidEmail(userEmail))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 bool isAuthenticated = userService.AuthenticateUser(userEmail, userPassword);
 
                 if (isAuthenticated)
                 {
-                    string? userType = userService.GetUserTypeByEmail(userEmail);
-                    var userDetails = userService.GetUserDetailsByEmail(userEmail);
-
-                    if (string.IsNullOrEmpty(userType))
-                    {
-                        MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    if (!userDetails.HasValue)
-                    {
-                        MessageBox.Show("User details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    int userID = userDetails.Value.UserID;
-                    string userName = userDetails.Value.UserName;
-
-                    MessageBox.Show("Login successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    Form nextForm;
-
-                    if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
-                    {
-                        FreelancerService freelancerService = new FreelancerService();
-                        bool hasProfile = freelancerService.CheckFreelancerProfile(userID);
-
-                        if (hasProfile)
-                        {
-                            nextForm = new NewFeedForm(userID, userName); // Redirect to NewFeedForm
-                        }
-                        else
-                        {
-                            nextForm = new SkillsSetUpFormOne(userID, userName); // Redirect to SkillsSetUpFormOne
-                        }
-                    }
-                    else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
-                    {
-                        var clientDetails = userService.GetClientDetailsByEmail(userEmail);
-
-                        if (clientDetails.HasValue)
-                        {
-                            int clientID = clientDetails.Value.UserID;
-                            string clientName = clientDetails.Value.UserName;
-                            string clientEmail = clientDetails.Value.UserEmail;
-
-                            ClientServices clientServices = new ClientServices();
-                            bool hasClientProfile = clientServices.ClientProfileExists(userID);
-
-                            if (hasClientProfile)
-                            {
-                                nextForm = new ClientDashboard(clientID); // Redirect to NewFeedForm
-                            }
-                            else
-                            {
-                                nextForm = new ClientForm(clientID, clientName, clientEmail); // Redirect to ClientForm
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Client details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    this.Hide();
-                    nextForm.Show();
+                    HandleUserRedirection(userEmail);
                 }
                 else
                 {
-                    MessageBox.Show("Invalid email or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Invalid email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -118,6 +57,60 @@ namespace FreelancePlatform
             RegisterForm registerForm = new();
             registerForm.Show();
             this.Hide();
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            return Regex.IsMatch(email, @"^[^\s@]+@[^\s@]+\.[^\s@]+$");
+        }
+
+        private void showPasswordCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            userLoginPasswordTextBox.PasswordChar = showPasswordCheckBox.Checked ? '\0' : '\u25cF';
+        }
+
+        private void HandleUserRedirection(string email)
+        {
+            string? userType = userService.GetUserTypeByEmail(email);
+            var userDetails = userService.GetUserDetailsByEmail(email);
+
+            if (string.IsNullOrEmpty(userType) || !userDetails.HasValue)
+            {
+                MessageBox.Show("User details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int userID = userDetails.Value.UserID;
+            string userName = userDetails.Value.UserName;
+            Form nextForm;
+
+            if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
+            {
+                FreelancerService freelancerService = new FreelancerService();
+                nextForm = freelancerService.CheckFreelancerProfile(userID)
+                    ? new NewFeedForm(userID, userName)
+                    : new SkillsSetUpFormOne(userID, userName);
+            }
+            else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
+            {
+                var clientDetails = userService.GetClientDetailsByEmail(email);
+                if (!clientDetails.HasValue)
+                {
+                    MessageBox.Show("Client details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                nextForm = new ClientServices().ClientProfileExists(userID)
+                    ? new ClientDashboard(clientDetails.Value.UserID)
+                    : new ClientForm(clientDetails.Value.UserID, clientDetails.Value.UserName, clientDetails.Value.UserEmail);
+            }
+            else
+            {
+                MessageBox.Show("User type is not recognized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            this.Hide();
+            nextForm.Show();
         }
     }
 }
