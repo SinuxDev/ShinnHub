@@ -16,6 +16,8 @@ namespace FreelancePlatform.UI
             this.userName = userName;
             this.email = email;
             clientServices = new ClientServices();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
         }
 
         private void ClientDataSaveButton_Click(object sender, EventArgs e)

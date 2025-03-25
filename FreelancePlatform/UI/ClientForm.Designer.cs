@@ -38,6 +38,8 @@
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ClientDataSaveButton = new Guna.UI2.WinForms.Guna2CircleButton();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // ClientCompanyNameTextBox
@@ -51,7 +53,7 @@
             ClientCompanyNameTextBox.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             ClientCompanyNameTextBox.Font = new Font("Segoe UI", 9F);
             ClientCompanyNameTextBox.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
-            ClientCompanyNameTextBox.Location = new Point(245, 70);
+            ClientCompanyNameTextBox.Location = new Point(220, 75);
             ClientCompanyNameTextBox.Margin = new Padding(3, 4, 3, 4);
             ClientCompanyNameTextBox.Name = "ClientCompanyNameTextBox";
             ClientCompanyNameTextBox.PlaceholderText = "";
@@ -72,7 +74,7 @@
             ClientCompanyIndustryComboxBox.ForeColor = Color.FromArgb(68, 88, 112);
             ClientCompanyIndustryComboxBox.ItemHeight = 30;
             ClientCompanyIndustryComboxBox.Items.AddRange(new object[] { "IT & Networking", "Software Engineering", "Engineering & Architecture" });
-            ClientCompanyIndustryComboxBox.Location = new Point(245, 176);
+            ClientCompanyIndustryComboxBox.Location = new Point(220, 181);
             ClientCompanyIndustryComboxBox.Name = "ClientCompanyIndustryComboxBox";
             ClientCompanyIndustryComboxBox.ShadowDecoration.CustomizableEdges = customizableEdges4;
             ClientCompanyIndustryComboxBox.Size = new Size(158, 36);
@@ -81,7 +83,7 @@
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Location = new Point(87, 83);
+            guna2HtmlLabel1.Location = new Point(62, 88);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(110, 22);
             guna2HtmlLabel1.TabIndex = 3;
@@ -90,7 +92,7 @@
             // guna2HtmlLabel2
             // 
             guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Location = new Point(142, 176);
+            guna2HtmlLabel2.Location = new Point(117, 181);
             guna2HtmlLabel2.Name = "guna2HtmlLabel2";
             guna2HtmlLabel2.Size = new Size(55, 22);
             guna2HtmlLabel2.TabIndex = 4;
@@ -104,7 +106,7 @@
             ClientDataSaveButton.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
             ClientDataSaveButton.Font = new Font("Segoe UI", 9F);
             ClientDataSaveButton.ForeColor = Color.White;
-            ClientDataSaveButton.Location = new Point(268, 267);
+            ClientDataSaveButton.Location = new Point(183, 278);
             ClientDataSaveButton.Name = "ClientDataSaveButton";
             ClientDataSaveButton.ShadowDecoration.CustomizableEdges = customizableEdges5;
             ClientDataSaveButton.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
@@ -113,20 +115,31 @@
             ClientDataSaveButton.Text = "Save";
             ClientDataSaveButton.Click += ClientDataSaveButton_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Thistle;
+            panel1.Controls.Add(ClientDataSaveButton);
+            panel1.Controls.Add(guna2HtmlLabel2);
+            panel1.Controls.Add(guna2HtmlLabel1);
+            panel1.Controls.Add(ClientCompanyIndustryComboxBox);
+            panel1.Controls.Add(ClientCompanyNameTextBox);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(505, 459);
+            panel1.TabIndex = 6;
+            // 
             // ClientForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(817, 459);
-            Controls.Add(ClientDataSaveButton);
-            Controls.Add(guna2HtmlLabel2);
-            Controls.Add(guna2HtmlLabel1);
-            Controls.Add(ClientCompanyIndustryComboxBox);
-            Controls.Add(ClientCompanyNameTextBox);
+            ClientSize = new Size(505, 459);
+            Controls.Add(panel1);
             Name = "ClientForm";
             Text = "ClientForm";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -136,5 +149,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
         private Guna.UI2.WinForms.Guna2CircleButton ClientDataSaveButton;
+        private Panel panel1;
     }
 }
