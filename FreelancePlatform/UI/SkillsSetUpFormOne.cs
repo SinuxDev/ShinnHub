@@ -12,7 +12,7 @@
             this.userName = userName;
         }
 
-        private void GetStartedButton_Click(object sender, EventArgs e)
+        private void GetStartedButton2_Click(object sender, EventArgs e)
         {
             SkillsSetUpFormTwo skillsSetUpFormTwo = new SkillsSetUpFormTwo(userID, userName);
             skillsSetUpFormTwo.Show();
