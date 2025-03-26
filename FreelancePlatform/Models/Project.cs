@@ -11,5 +11,6 @@
         public int RelatedClientID { get; set; }
         public int isDone { get; set; }
         public int isApply { get; set; }
+        public int RelatedProjectFreelancerID { get; set; }
     }
 }
