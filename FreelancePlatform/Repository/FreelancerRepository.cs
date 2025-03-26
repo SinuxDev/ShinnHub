@@ -7,7 +7,7 @@ namespace FreelancePlatform.Repository
 {
     public class FreelancerRepository
     {
-        public int AddFreelancer(string userName, int userID, string userSkillsIndustry, string userSkillsOne, string userSkillsTwo, string userSkillsThree, string userRole, string userBio, string userCountry, string userRegion, string userAddress, string userPhone)
+        public int AddFreelancer(Freelancer freelancer)
         {
             string query = "INSERT INTO UserSkills (userName, userID, userSkillsIndustry, userSkillsOne, userSkillsTwo, userSkillsThree, userRole, userBio, userCountry, userRegion, userAddress, userPhone) " +
                            "VALUES (@userName, @userID, @userSkillsIndustry, @userSkillsOne, @userSkillsTwo, @userSkillsThree, @userRole, @userBio, @userCountry, @userRegion, @userAddress, @userPhone)";
@@ -18,18 +18,18 @@ namespace FreelancePlatform.Repository
                 db.Open();
                 var parameters = new MySqlParameter[]
                 {
-                    new MySqlParameter("@userName", userName),
-                    new MySqlParameter("@userID", MySqlDbType.Int32) { Value = userID },
-                    new MySqlParameter("@userSkillsIndustry", userSkillsIndustry),
-                    new MySqlParameter("@userSkillsOne", userSkillsOne),
-                    new MySqlParameter("@userSkillsTwo", userSkillsTwo),
-                    new MySqlParameter("@userSkillsThree", userSkillsThree),
-                    new MySqlParameter("@userRole", userRole),
-                    new MySqlParameter("@userBio", userBio),
-                    new MySqlParameter("@userCountry", userCountry),
-                    new MySqlParameter("@userRegion", userRegion),
-                    new MySqlParameter("@userAddress", userAddress),
-                    new MySqlParameter("@userPhone", userPhone)
+                    new MySqlParameter("@userName", freelancer.UserName),
+                    new MySqlParameter("@userID", MySqlDbType.Int32) { Value = freelancer.UserID },
+                    new MySqlParameter("@userSkillsIndustry", freelancer.UserSkillsIndustry),
+                    new MySqlParameter("@userSkillsOne", freelancer.UserSkillsOne),
+                    new MySqlParameter("@userSkillsTwo", freelancer.UserSkillsTwo),
+                    new MySqlParameter("@userSkillsThree", freelancer.UserSkillsThree),
+                    new MySqlParameter("@userRole", freelancer.UserRole),
+                    new MySqlParameter("@userBio", freelancer.UserBio),
+                    new MySqlParameter("@userCountry", freelancer.UserCountry),
+                    new MySqlParameter("@userRegion", freelancer.UserRegion),
+                    new MySqlParameter("@userAddress", freelancer.UserAddress),
+                    new MySqlParameter("@userPhone", freelancer.UserPhone)
                 };
 
                 rowsAffected = db.ExecuteNonQuery(query, parameters);

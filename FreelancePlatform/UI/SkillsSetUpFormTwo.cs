@@ -1,4 +1,5 @@
-﻿using FreelancePlatform.Services;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Services;
 
 namespace FreelancePlatform.UI
 {
@@ -185,11 +186,23 @@ namespace FreelancePlatform.UI
 
             FreelancerService freelancerService = new FreelancerService();
 
-            bool isRegistered = freelancerService.RegisterFreelancer(
-                userName, userID, userSkillsIndustry,
-                userSkillsOne, userSkillsTwo, userSkillsThree,
-                userRole, userBio, userCountry, userRegion, userAddress, userPhone
-            );
+            Freelancer newFreelancer = new Freelancer
+            {
+                UserID = userID,
+                UserName = userName,
+                UserSkillsIndustry = userSkillsIndustry,
+                UserSkillsOne = userSkillsOne,
+                UserSkillsTwo = userSkillsTwo,
+                UserSkillsThree = userSkillsThree,
+                UserRole = userRole,
+                UserBio = userBio,
+                UserAddress = userAddress,
+                UserCountry = userCountry,
+                UserPhone = userPhone,
+                UserRegion = userRegion,
+            };
+
+            bool isRegistered = freelancerService.RegisterFreelancer(newFreelancer);
 
             if (isRegistered)
             {

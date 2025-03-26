@@ -13,19 +13,19 @@ public class FreelancerService
         repository = new FreelancerRepository();
     }
 
-    public bool RegisterFreelancer(string userName, int userID, string userSkillsIndustry, string userSkillsOne, string userSkillsTwo, string userSkillsThree, string userRole, string userBio, string userCountry, string userRegion, string userAddress, string userPhone)
+    public bool RegisterFreelancer(Freelancer freelancer)
     {
-        if (string.IsNullOrWhiteSpace(userName) || userID <= 0 ||
-            string.IsNullOrWhiteSpace(userSkillsIndustry) || string.IsNullOrWhiteSpace(userSkillsOne) ||
-            string.IsNullOrWhiteSpace(userSkillsTwo) || string.IsNullOrWhiteSpace(userSkillsThree) ||
-            string.IsNullOrWhiteSpace(userRole) || string.IsNullOrWhiteSpace(userBio) ||
-            string.IsNullOrWhiteSpace(userCountry) || string.IsNullOrWhiteSpace(userRegion) ||
-            string.IsNullOrWhiteSpace(userAddress) || string.IsNullOrWhiteSpace(userPhone))
+        if (string.IsNullOrWhiteSpace(freelancer.UserName) || freelancer.UserID <= 0 ||
+            string.IsNullOrWhiteSpace(freelancer.UserSkillsIndustry) || string.IsNullOrWhiteSpace(freelancer.UserSkillsOne) ||
+            string.IsNullOrWhiteSpace(freelancer.UserSkillsTwo) || string.IsNullOrWhiteSpace(freelancer.UserSkillsThree) ||
+            string.IsNullOrWhiteSpace(freelancer.UserRole) || string.IsNullOrWhiteSpace(freelancer.UserBio) ||
+            string.IsNullOrWhiteSpace(freelancer.UserCountry) || string.IsNullOrWhiteSpace(freelancer.UserRegion) ||
+            string.IsNullOrWhiteSpace(freelancer.UserAddress) || string.IsNullOrWhiteSpace(freelancer.UserPhone))
         {
             throw new ArgumentException("All fields must be provided.");
         }
 
-        int result = repository.AddFreelancer(userName, userID, userSkillsIndustry, userSkillsOne, userSkillsTwo, userSkillsThree, userRole, userBio, userCountry, userRegion, userAddress, userPhone);
+        int result = repository.AddFreelancer(freelancer);
         return result > 0;
     }
 
