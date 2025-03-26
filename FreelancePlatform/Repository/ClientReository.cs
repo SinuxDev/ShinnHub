@@ -5,18 +5,18 @@ namespace FreelancePlatform.Repository
 {
     public class ClientRepository
     {
-        public int AddClient(string clientName, string clientEmail, string clientCompany, string clientIndustry, int relatedUser)
+        public int AddClient(Client client)
         {
             string query = "INSERT INTO Client (clientName, clientEmail, clientCompany, clientIndustry, relatedUser) VALUES (@clientName, @clientEmail, @clientCompany, @clientIndustry, @relatedUser)";
             int rowsAffected = 0;
             using (var db = new dbConnection())
             {
                 db.Open();
-                var paramClientName = new MySqlParameter("@clientName", clientName);
-                var paramClientEmail = new MySqlParameter("@clientEmail", clientEmail);
-                var paramClientCompany = new MySqlParameter("@clientCompany", clientCompany);
-                var paramClientIndustry = new MySqlParameter("@clientIndustry", clientIndustry);
-                var paramRelatedUser = new MySqlParameter("@relatedUser", relatedUser);
+                var paramClientName = new MySqlParameter("@clientName", client.ClientName);
+                var paramClientEmail = new MySqlParameter("@clientEmail", client.ClientEmail);
+                var paramClientCompany = new MySqlParameter("@clientCompany", client.ClientCompany);
+                var paramClientIndustry = new MySqlParameter("@clientIndustry", client.ClientIndustry);
+                var paramRelatedUser = new MySqlParameter("@relatedUser", client.RelatedUser);
                 rowsAffected = db.ExecuteNonQuery(query, paramClientName, paramClientEmail, paramClientCompany, paramClientIndustry, paramRelatedUser);
                 db.Close();
             }

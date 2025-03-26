@@ -1,4 +1,5 @@
-﻿using FreelancePlatform.Services;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Services;
 
 namespace FreelancePlatform.UI
 {
@@ -31,14 +32,26 @@ namespace FreelancePlatform.UI
                 return;
             }
 
+            Client newClient = new Client
+            {
+                ClientName = userName,
+                ClientEmail = email,
+                ClientCompany = clientCompanyName,
+                ClientIndustry = clientIndustry,
+                RelatedUser = userID
+            };
+
             try
             {
-                bool isRegistered = clientServices.RegisterClient(userName, email, clientCompanyName, clientIndustry, userID);
+                bool isRegistered = clientServices.RegisterClient(newClient);
 
                 if (isRegistered)
                 {
                     MessageBox.Show("Client registered successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close(); // Close the form after successful registration
+
+                    LoginForm loginForm = new LoginForm();
+                    loginForm.Show();
+                    this.Close();
                 }
                 else
                 {

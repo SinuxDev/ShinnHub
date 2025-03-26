@@ -86,22 +86,31 @@ namespace FreelancePlatform
 
             if (userType.Equals("Freelancer", StringComparison.OrdinalIgnoreCase))
             {
-                FreelancerService freelancerService = new FreelancerService();
-                nextForm = freelancerService.CheckFreelancerProfile(userID)
+                FreelancerService freelancerService = new();
+                bool hasFreelancerProfile = freelancerService.CheckFreelancerProfile(userID);
+
+                nextForm = hasFreelancerProfile
                     ? new NewFeedForm(userID, userName)
                     : new SkillsSetUpFormOne(userID, userName);
             }
             else if (userType.Equals("Client", StringComparison.OrdinalIgnoreCase))
             {
                 var clientDetails = userService.GetClientDetailsByEmail(email);
+
                 if (!clientDetails.HasValue)
                 {
-                    MessageBox.Show("Client details not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    // If client details are not found, still allow them to create a profile
+                    nextForm = new ClientForm(userID, userName, email);
                 }
-                nextForm = new ClientServices().ClientProfileExists(userID)
-                    ? new ClientDashboard(clientDetails.Value.UserID)
-                    : new ClientForm(clientDetails.Value.UserID, clientDetails.Value.UserName, clientDetails.Value.UserEmail);
+                else
+                {
+                    ClientServices clientServices = new();
+                    bool hasClientProfile = clientServices.ClientProfileExists(userID);
+
+                    nextForm = hasClientProfile
+                        ? new ClientDashboard(clientDetails.Value.UserID)
+                        : new ClientForm(clientDetails.Value.UserID, clientDetails.Value.UserName, clientDetails.Value.UserEmail);
+                }
             }
             else
             {
@@ -112,5 +121,6 @@ namespace FreelancePlatform
             this.Hide();
             nextForm.Show();
         }
+
     }
 }

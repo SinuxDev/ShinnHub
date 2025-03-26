@@ -1,4 +1,5 @@
-﻿using FreelancePlatform.Repository;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Repository;
 
 namespace FreelancePlatform.Services;
 
@@ -11,14 +12,14 @@ public class ClientServices
         repository = new ClientRepository();
     }
 
-    public bool RegisterClient(string clientName, string clientEmail, string clientCompany, string clientIndustry, int relatedUser)
+    public bool RegisterClient(Client client)
     {
-        if (string.IsNullOrWhiteSpace(clientName) || string.IsNullOrWhiteSpace(clientEmail) ||
-            string.IsNullOrWhiteSpace(clientCompany) || string.IsNullOrWhiteSpace(clientIndustry) || relatedUser <= 0)
+        if (string.IsNullOrWhiteSpace(client.ClientName) || string.IsNullOrWhiteSpace(client.ClientEmail) ||
+            string.IsNullOrWhiteSpace(client.ClientCompany) || string.IsNullOrWhiteSpace(client.ClientIndustry) || client.RelatedUser <= 0)
         {
             throw new ArgumentException("All fields must be provided.");
         }
-        int result = repository.AddClient(clientName, clientEmail, clientCompany, clientIndustry, relatedUser);
+        int result = repository.AddClient(client);
         return result > 0;
     }
 
