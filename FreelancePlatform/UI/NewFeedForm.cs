@@ -148,11 +148,20 @@ namespace FreelancePlatform.UI
             // Debugging
             MessageBox.Show($"Applying with Freelancer ID: {freelancerID}, Client ID: {clientID}");
 
-            bool success = projectRequestServices.AddProjectRequest(projectID, projectTitle, clientID, freelancerID);
+            ProjectRequest projectRequest = new ProjectRequest
+            {
+                RelatedProject = projectID,
+                RelatedProjectTitle = projectTitle,
+                RelatedFreelancer = freelancerID,
+                RelatedClientID = clientID
+            };
+
+            bool success = projectRequestServices.AddProjectRequest(projectRequest);
 
             if (success)
             {
                 MessageBox.Show($"Successfully applied to {projectTitle}!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadAllProjects();
             }
             else
             {

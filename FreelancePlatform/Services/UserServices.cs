@@ -16,37 +16,37 @@ public class UserService
     }
 
 
-    public bool RegisterUser(string username, string password, string email, string userType)
+    public bool RegisterUser(User user)
     {
 
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
+        if (string.IsNullOrWhiteSpace(user.UserName) || string.IsNullOrWhiteSpace(user.UserPassword) || string.IsNullOrWhiteSpace(user.UserEmail))
         {
             throw new ArgumentException("Username, password, and email must be provided.");
         }
 
 
-        if (!IsValidEmail(email))
+        if (!IsValidEmail(user.UserEmail))
         {
             throw new ArgumentException("Invalid email format.");
         }
 
 
-        if (repository.UserExists(username, email))
+        if (repository.UserExists(user.UserName, user.UserEmail))
         {
             throw new ArgumentException("Username or email already exists.");
         }
 
 
-        if (!IsValidPassword(password))
+        if (!IsValidPassword(user.UserPassword))
         {
             throw new ArgumentException("Password must be 8 to 12 characters long and contain at least one lowercase and one uppercase letter.");
         }
 
         // Hash the password using BCrypt
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.UserPassword);
 
         // Pass the hashed password to the repository for storage
-        int result = repository.AddUser(username, hashedPassword, email, userType);
+        int result = repository.AddUser(user);
         return result > 0;
     }
 

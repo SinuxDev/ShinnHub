@@ -1,3 +1,4 @@
+using FreelancePlatform.Models;
 using FreelancePlatform.Services;
 using System.Text.RegularExpressions;
 
@@ -48,7 +49,16 @@ namespace FreelancePlatform
             {
                 // Use the service layer to register the user.
                 var userService = new UserService();
-                bool success = userService.RegisterUser(username, password, email, userType);
+
+                User newUser = new User
+                {
+                    UserName = username,
+                    UserPassword = password,
+                    UserEmail = email,
+                    UserType = userType
+                };
+
+                bool success = userService.RegisterUser(newUser);
 
                 if (success)
                 {

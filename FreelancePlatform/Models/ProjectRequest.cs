@@ -7,6 +7,7 @@
         public int RelatedProject { get; set; }
         public string? RelatedProjectTitle { get; set; }
         public int RelatedFreelancer { get; set; }
+        public int RelatedClientID { get; set; }
         public string? Status { get; set; }
 
     }

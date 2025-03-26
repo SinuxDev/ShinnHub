@@ -5,31 +5,21 @@ namespace FreelancePlatform.Repository
 {
     public class ProjectRequestRepository
     {
-        public int AddProjectRequest(int relatedProject, string relatedProjectTitle, int relatedClientID, int relatedFreelancer)
+        public int AddProjectRequest(ProjectRequest projectRequest)
         {
             string query = "INSERT INTO ProjectRequest (relatedProject, relatedProjectTitle, relatedClientID, relatedFreelancer) VALUES (@relatedProject, @relatedProjectTitle, @relatedClientID, @relatedFreelancer)";
             int rowsAffected = 0;
             using (var db = new dbConnection())
             {
                 db.Open();
-                var paramRelatedProject = new MySqlParameter("@relatedProject", relatedProject);
-                var paramRelatedProjectTitle = new MySqlParameter("@relatedProjectTitle", relatedProjectTitle);
-                var paramRelatedClientID = new MySqlParameter("@relatedClientID", relatedClientID);
-                var paramRelatedFreelancer = new MySqlParameter("@relatedFreelancer", relatedFreelancer);
+                var paramRelatedProject = new MySqlParameter("@relatedProject", projectRequest.RelatedProject);
+                var paramRelatedProjectTitle = new MySqlParameter("@relatedProjectTitle", projectRequest.RelatedProjectTitle);
+                var paramRelatedClientID = new MySqlParameter("@relatedClientID", projectRequest.RelatedClientID);
+                var paramRelatedFreelancer = new MySqlParameter("@relatedFreelancer", projectRequest.RelatedFreelancer);
                 rowsAffected = db.ExecuteNonQuery(query, paramRelatedProject, paramRelatedClientID, paramRelatedProjectTitle, paramRelatedFreelancer);
                 db.Close();
             }
             return rowsAffected;
-        }
-
-
-        public class ProjectRequest
-        {
-            public int ID { get; set; }
-            public int RelatedProject { get; set; }
-            public string? RelatedProjectTitle { get; set; }
-            public int RelatedFreelancer { get; set; }
-            public string? Status { get; set; }
         }
 
         public List<ProjectRequest> GetRequestsForClient(int clientID)

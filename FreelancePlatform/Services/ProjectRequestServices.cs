@@ -1,4 +1,4 @@
-﻿using FreelancePlatform.Models; // ✅ Import the separate ProjectRequest model
+﻿using FreelancePlatform.Models;
 using FreelancePlatform.Repository;
 
 namespace FreelancePlatform.Services
@@ -12,14 +12,14 @@ namespace FreelancePlatform.Services
             repository = new ProjectRequestRepository();
         }
 
-        public bool AddProjectRequest(int relatedProject, string relatedProjectTitle, int relatedClientID, int relatedFreelancer)
+        public bool AddProjectRequest(ProjectRequest projectRequest)
         {
-            if (relatedProject <= 0 || string.IsNullOrWhiteSpace(relatedProjectTitle) || relatedClientID <= 0 || relatedFreelancer <= 0)
+            if (projectRequest.RelatedProject <= 0 || string.IsNullOrWhiteSpace(projectRequest.RelatedProjectTitle) || projectRequest.RelatedClientID <= 0 || projectRequest.RelatedFreelancer <= 0)
             {
                 throw new ArgumentException("All fields must be provided.");
             }
 
-            int result = repository.AddProjectRequest(relatedProject, relatedProjectTitle, relatedClientID, relatedFreelancer);
+            int result = repository.AddProjectRequest(projectRequest);
             return result > 0;
         }
 

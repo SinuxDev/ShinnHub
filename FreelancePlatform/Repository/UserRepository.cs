@@ -6,7 +6,7 @@ namespace FreelancePlatform.Repository
     public class UserRepository
     {
 
-        public int AddUser(string username, string password, string email, string userType)
+        public int AddUser(User user)
         {
 
             string query = "INSERT INTO Users (userName, userPassword, userEmail, userType) VALUES (@username, @password, @email, @userType)";
@@ -16,10 +16,10 @@ namespace FreelancePlatform.Repository
             {
                 db.Open();
 
-                var paramUsername = new MySqlParameter("@username", username);
-                var paramPassword = new MySqlParameter("@password", password);
-                var paramEmail = new MySqlParameter("@email", email);
-                var paramUserType = new MySqlParameter("@userType", userType);
+                var paramUsername = new MySqlParameter("@username", user.UserName);
+                var paramPassword = new MySqlParameter("@password", user.UserPassword);
+                var paramEmail = new MySqlParameter("@email", user.UserEmail);
+                var paramUserType = new MySqlParameter("@userType", user.UserType);
 
                 rowsAffected = db.ExecuteNonQuery(query, paramUsername, paramPassword, paramEmail, paramUserType);
                 db.Close();
