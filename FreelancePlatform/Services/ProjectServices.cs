@@ -1,4 +1,4 @@
-﻿using static FreelancePlatform.Repository.ProjectRepository;
+﻿using FreelancePlatform.Models;
 
 namespace FreelancePlatform.Repository;
 
@@ -11,13 +11,14 @@ public class ProjectServices
         repository = new ProjectRepository();
     }
 
-    public bool AddProject(string projectTitle, string projectDescription, string projectSkills, decimal projectBudget, string projectDeadline, int relatedClient)
+    public bool AddProject(Project project)
     {
-        if (string.IsNullOrWhiteSpace(projectTitle) || string.IsNullOrWhiteSpace(projectDescription) || string.IsNullOrWhiteSpace(projectSkills) || projectBudget <= 0 || string.IsNullOrWhiteSpace(projectDeadline) || relatedClient <= 0)
+        if (string.IsNullOrWhiteSpace(project.ProjectTitle) || string.IsNullOrWhiteSpace(project.ProjectDescription) || string.IsNullOrWhiteSpace(project.ProjectSkills) || project.ProjectBudget <= 0 || string.IsNullOrWhiteSpace(project.ProjectDeadline) || project.RelatedClientID <= 0)
         {
             throw new ArgumentException("All fields must be provided.");
         }
-        int result = repository.AddProject(projectTitle, projectDescription, projectSkills, projectBudget, projectDeadline, relatedClient);
+
+        int result = repository.AddProject(project);
         return result > 0;
     }
 

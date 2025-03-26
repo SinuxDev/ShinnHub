@@ -6,7 +6,7 @@ namespace FreelancePlatform.Repository
 {
     public class ProjectRepository
     {
-        public int AddProject(string projectTitle, string projectDescription, string projectSkills, decimal projectBudget, string projectDeadline, int relatedClient)
+        public int AddProject(Project project)
         {
             string query = "INSERT INTO Project (projectTitle, projectDescription, projectSkills, projectBudget, projectDeadline, relatedClient) VALUES (@projectTitle, @projectDescription, @projectSkills, @projectBudget, @projectDeadline, @relatedClient)";
 
@@ -14,33 +14,18 @@ namespace FreelancePlatform.Repository
             using (var db = new dbConnection())
             {
                 db.Open();
-                var paramProjectTitle = new MySqlParameter("@projectTitle", projectTitle);
-                var paramProjectDescription = new MySqlParameter("@projectDescription", projectDescription);
-                var paramProjectSkills = new MySqlParameter("@projectSkills", projectSkills);
-                var paramProjectBudget = new MySqlParameter("@projectBudget", projectBudget);
-                var paramProjectDeadline = new MySqlParameter("@projectDeadline", projectDeadline);
-                var paramRelatedClient = new MySqlParameter("@relatedClient", relatedClient);
+                var paramProjectTitle = new MySqlParameter("@projectTitle", project.ProjectTitle);
+                var paramProjectDescription = new MySqlParameter("@projectDescription", project.ProjectDescription);
+                var paramProjectSkills = new MySqlParameter("@projectSkills", project.ProjectSkills);
+                var paramProjectBudget = new MySqlParameter("@projectBudget", project.ProjectBudget);
+                var paramProjectDeadline = new MySqlParameter("@projectDeadline", project.ProjectDeadline);
+                var paramRelatedClient = new MySqlParameter("@relatedClient", project.RelatedClientID);
 
                 rowsAffected = db.ExecuteNonQuery(query, paramProjectTitle, paramProjectDescription, paramProjectSkills, paramProjectBudget, paramProjectDeadline, paramRelatedClient);
                 db.Close();
             }
             return rowsAffected;
         }
-
-        public class Project
-        {
-            public int ProjectID { get; set; }
-            public string? ProjectTitle { get; set; }
-            public string? ProjectDescription { get; set; }
-            public decimal ProjectBudget { get; set; }
-            public string? ProjectDeadline { get; set; }
-            public string? ProjectSkills { get; set; }
-            public int RelatedClientID { get; set; }
-            public int isDone { get; set; }
-            public int isApply { get; set; }
-        }
-
-
 
         public List<Project> GetProjectsByClientID(int clientID)
         {

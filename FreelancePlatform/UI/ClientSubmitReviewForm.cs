@@ -1,5 +1,5 @@
-﻿using FreelancePlatform.Repository;
-using static FreelancePlatform.Repository.ProjectRepository;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Repository;
 
 namespace FreelancePlatform.UI
 {

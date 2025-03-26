@@ -1,4 +1,5 @@
-﻿using FreelancePlatform.Repository;
+﻿using FreelancePlatform.Models;
+using FreelancePlatform.Repository;
 using MySql.Data.MySqlClient;
 
 namespace FreelancePlatform.UI
@@ -51,7 +52,18 @@ namespace FreelancePlatform.UI
             // If validation passes, continue processing
             try
             {
-                bool isAdded = projectServices.AddProject(projectTitle, projectDescription, projectSkills, projectBudget, projectDeadline, userID);
+                Project project = new Project
+                {
+                    ProjectTitle = projectTitle,
+                    ProjectDescription = projectDescription,
+                    ProjectSkills = projectSkills,
+                    ProjectBudget = projectBudget,
+                    ProjectDeadline = projectDeadline,
+                    RelatedClientID = userID
+                };
+
+
+                bool isAdded = projectServices.AddProject(project);
 
                 if (isAdded)
                 {
