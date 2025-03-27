@@ -146,7 +146,7 @@ namespace FreelancePlatform.UI
             string projectTitle = project.ProjectTitle ?? "Untitled Project";
 
             // Debugging
-            MessageBox.Show($"Applying with Freelancer ID: {freelancerID}, Client ID: {clientID}");
+            MessageBox.Show($"Project is Bid Freelancer ID: {freelancerID}, for Client ID: {clientID}");
 
             ProjectRequest projectRequest = new ProjectRequest
             {

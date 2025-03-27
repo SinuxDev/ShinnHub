@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             WelcomeLabel = new Label();
             UserEmailLogin = new Label();
             label2 = new Label();
@@ -81,7 +81,7 @@
             userLoginEmailTextBox.Location = new Point(417, 154);
             userLoginEmailTextBox.Multiline = true;
             userLoginEmailTextBox.Name = "userLoginEmailTextBox";
-            userLoginEmailTextBox.Size = new Size(198, 31);
+            userLoginEmailTextBox.Size = new Size(266, 31);
             userLoginEmailTextBox.TabIndex = 3;
             // 
             // userLoginPasswordTextBox
@@ -89,7 +89,7 @@
             userLoginPasswordTextBox.Location = new Point(417, 247);
             userLoginPasswordTextBox.Multiline = true;
             userLoginPasswordTextBox.Name = "userLoginPasswordTextBox";
-            userLoginPasswordTextBox.Size = new Size(198, 31);
+            userLoginPasswordTextBox.Size = new Size(266, 31);
             userLoginPasswordTextBox.TabIndex = 4;
             // 
             // userLoginButton
@@ -174,10 +174,10 @@
             // 
             guna2Panel1.BackColor = Color.FromArgb(128, 128, 255);
             guna2Panel1.Controls.Add(WelcomeLabel);
-            guna2Panel1.CustomizableEdges = customizableEdges31;
+            guna2Panel1.CustomizableEdges = customizableEdges3;
             guna2Panel1.Location = new Point(-5, 0);
             guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2Panel1.Size = new Size(962, 106);
             guna2Panel1.TabIndex = 7;
             // 

@@ -39,6 +39,7 @@ namespace FreelancePlatform
 
                 if (isAuthenticated)
                 {
+                    MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     HandleUserRedirection(userEmail);
                 }
                 else

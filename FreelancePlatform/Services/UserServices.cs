@@ -43,7 +43,7 @@ public class UserService
         }
 
         // Hash the password using BCrypt
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.UserPassword);
+        user.UserPassword = BCrypt.Net.BCrypt.HashPassword(user.UserPassword);
 
         // Pass the hashed password to the repository for storage
         int result = repository.AddUser(user);
